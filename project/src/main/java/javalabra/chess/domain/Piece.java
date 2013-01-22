@@ -1,5 +1,9 @@
 package javalabra.chess.domain;
 
+import java.util.Set;
+
+import javalabra.chess.core.MoveDirector;
+
 public abstract class Piece {
 
 	private final Color color;
@@ -21,5 +25,7 @@ public abstract class Piece {
 		position = target;
 		position.setPiece(this);
 	}
+
+	public abstract Set<Square> getLegalMoves(MoveDirector director);
 
 }
