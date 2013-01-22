@@ -1,31 +1,46 @@
-package javalabra.chess.domain;
+package javalabra.chess.core.impl;
 
 import static org.junit.Assert.*;
+
+import javalabra.chess.domain.Bishop;
+import javalabra.chess.domain.Board;
+import javalabra.chess.domain.Color;
+import javalabra.chess.domain.King;
+import javalabra.chess.domain.Knight;
+import javalabra.chess.domain.Pawn;
+import javalabra.chess.domain.Piece;
+import javalabra.chess.domain.PlayerBlack;
+import javalabra.chess.domain.PlayerWhite;
+import javalabra.chess.domain.Queen;
+import javalabra.chess.domain.Rook;
+import javalabra.chess.domain.Square;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class BoardTest {
+public class DefaultBoardBuilderTest {
 
 	PlayerWhite white;
 	PlayerBlack black;
+	DefaultBoardBuilder builder;
 	Board board;
 
 	@Before
 	public void setUp() throws Exception {
 		white = new PlayerWhite();
 		black = new PlayerBlack();
-		board = new Board(white, black);
+		builder = new DefaultBoardBuilder();
+		board = builder.build(white, black);
 	}
 
 	@Test
-	public void boardCreatesAllPieces() {
+	public void builderCreatesAllPieces() {
 		assertEquals(16, white.getPieces().size());
 		assertEquals(16, black.getPieces().size());
 	}
 
 	@Test
-	public void boardCreatesValidSetup() {
+	public void buildCreatesValidSetup() {
 		assertPawnRow(board, Color.WHITE);
 		assertPrimaryRow(board, Color.WHITE);
 		assertPawnRow(board, Color.BLACK);
