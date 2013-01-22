@@ -37,6 +37,10 @@ public class Square {
 		this.piece = piece;
 	}
 
+	public boolean isOccupied() {
+		return null != piece;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%c%c", getFile(), getRank());
