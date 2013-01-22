@@ -18,6 +18,10 @@ public abstract class Piece {
 		return color;
 	}
 
+	public Square getPosition() {
+		return position;
+	}
+
 	public void move(Square target) {
 		if (null != position) {
 			position.setPiece(null);
