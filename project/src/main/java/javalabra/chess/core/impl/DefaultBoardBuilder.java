@@ -17,6 +17,7 @@ import javalabra.chess.domain.Rook;
 
 public class DefaultBoardBuilder implements BoardBuilder {
 
+	@Override
 	public Board build(PlayerWhite white, PlayerBlack black) {
 		final Board board = new Board();
 

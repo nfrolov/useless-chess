@@ -24,26 +24,32 @@ public class DefaultMoveDirector implements MoveDirector {
 		this.board = board;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(King piece) {
 		return null;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(Queen piece) {
 		return null;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(Rook piece) {
 		return null;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(Knight piece) {
 		return null;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(Bishop piece) {
 		return null;
 	}
 
+	@Override
 	public Set<Square> getLegalMoves(Pawn piece) {
 		final Set<Square> moves = new HashSet<Square>();
 		final Square pos = piece.getPosition();
