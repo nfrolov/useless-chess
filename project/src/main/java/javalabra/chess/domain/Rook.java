@@ -6,8 +6,8 @@ import javalabra.chess.core.MoveDirector;
 
 public class Rook extends Piece {
 
-	public Rook(Color color, Square position) {
-		super(color, position);
+	public Rook(Color color) {
+		super(color);
 	}
 
 	@Override

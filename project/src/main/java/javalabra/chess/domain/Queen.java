@@ -6,8 +6,8 @@ import javalabra.chess.core.MoveDirector;
 
 public class Queen extends Piece {
 
-	public Queen(Color color, Square position) {
-		super(color, position);
+	public Queen(Color color) {
+		super(color);
 	}
 
 	@Override

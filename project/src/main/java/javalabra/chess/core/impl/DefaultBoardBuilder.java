@@ -41,28 +41,33 @@ public class DefaultBoardBuilder implements BoardBuilder {
 	private void createMainRow(Color color, Board board, Collection<Piece> pieces) {
 		final int row = Color.WHITE == color ? 0 : 7;
 
-		pieces.add(new Rook(color, board.getSquare(0, row)));
-		pieces.add(new Knight(color, board.getSquare(1, row)));
-		pieces.add(new Bishop(color, board.getSquare(2, row)));
+		addPiece(pieces, new Rook(color), board, 0, row);
+		addPiece(pieces, new Knight(color), board, 1, row);
+		addPiece(pieces, new Bishop(color), board, 2, row);
 
 		if (Color.WHITE == color) {
-			pieces.add(new Queen(color, board.getSquare(3, row)));
-			pieces.add(new King(color, board.getSquare(4, row)));
+			addPiece(pieces, new Queen(color), board, 3, row);
+			addPiece(pieces, new King(color), board, 4, row);
 		} else {
-			pieces.add(new King(color, board.getSquare(3, row)));
-			pieces.add(new Queen(color, board.getSquare(4, row)));
+			addPiece(pieces, new King(color), board, 3, row);
+			addPiece(pieces, new Queen(color), board, 4, row);
 		}
 
-		pieces.add(new Bishop(color, board.getSquare(5, row)));
-		pieces.add(new Knight(color, board.getSquare(6, row)));
-		pieces.add(new Rook(color, board.getSquare(7, row)));
+		addPiece(pieces, new Bishop(color), board, 5, row);
+		addPiece(pieces, new Knight(color), board, 6, row);
+		addPiece(pieces, new Rook(color), board, 7, row);
 	}
 
 	private void createPawnRow(Color color, Board board, Collection<Piece> pieces) {
 		final int row = Color.WHITE == color ? 1 : 6;
 		for (int col = 0; col < 8; ++col) {
-			pieces.add(new Pawn(color, board.getSquare(col, row)));
+			addPiece(pieces, new Pawn(color), board, col, row);
 		}
+	}
+
+	private void addPiece(final Collection<Piece> pieces, final Piece piece, final Board board, final int col, final int row) {
+		board.setPiecePosition(piece, board.getSquare(col, row));
+		pieces.add(piece);
 	}
 
 }

@@ -52,7 +52,7 @@ public class DefaultMoveDirector implements MoveDirector {
 	@Override
 	public Set<Square> getLegalMoves(Pawn piece) {
 		final Set<Square> moves = new HashSet<Square>();
-		final Square pos = piece.getPosition();
+		final Square pos = board.getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
 		if (Color.WHITE == piece.getColor()) {

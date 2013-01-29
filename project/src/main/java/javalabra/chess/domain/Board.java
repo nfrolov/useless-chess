@@ -1,6 +1,7 @@
 package javalabra.chess.domain;
 
 
+
 public class Board {
 
 	private final Square[] squares;
@@ -16,6 +17,19 @@ public class Board {
 
 	public Square getSquare(int column, int row) {
 		return squares[row * 8 + column];
+	}
+
+	public Square getPiecePosition(final Piece piece) {
+		for (final Square square : squares) {
+			if (piece == square.getPiece()) {
+				return square;
+			}
+		}
+		return null;
+	}
+
+	public void setPiecePosition(final Piece piece, final Square square) {
+		square.setPiece(piece);
 	}
 
 }
