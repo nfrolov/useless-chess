@@ -1,2 +1,4 @@
 20.01.2013	2	design
 22.01.2013	3	domain models; basic logic
+28.01.2013	2	design
+29.01.2013	5	move logic
