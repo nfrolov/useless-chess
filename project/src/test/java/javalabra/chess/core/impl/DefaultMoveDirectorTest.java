@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
+import javalabra.chess.domain.King;
 import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Pawn;
 import javalabra.chess.domain.Piece;
@@ -229,6 +230,50 @@ public class DefaultMoveDirectorTest {
 
 		assertThat(moves, hasSize(2));
 		assertThat(moves, hasItems(moveTo(0, 4), moveTo(2, 4)));
+	}
+
+	@Test
+	public void kingCanMakeAllLegalMoves() {
+		piece = new King(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(2, 2));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(8));
+		assertThat(moves, hasItems(
+				moveTo(1, 3), moveTo(2, 3), moveTo(3, 3),
+				moveTo(1, 2), moveTo(3, 2),
+				moveTo(1, 1), moveTo(2, 1), moveTo(3, 1)
+				));
+	}
+
+	@Test
+	public void kingCanMakeAllLegalMovesAtBorder() {
+		piece = new King(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(0, 2));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(5));
+		assertThat(moves, hasItems(
+				moveTo(0, 3), moveTo(1, 3),
+				moveTo(1, 2),
+				moveTo(0, 1), moveTo(1, 1)
+				));
+	}
+
+	@Test
+	public void kingCanMakeAllLegalMovesInCorner() {
+		piece = new King(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(7, 7));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(3));
+		assertThat(moves, hasItems(
+				moveTo(6, 7),
+				moveTo(6, 6), moveTo(7, 6)
+				));
 	}
 
 }

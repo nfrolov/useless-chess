@@ -29,7 +29,22 @@ public class DefaultMoveDirector implements MoveDirector {
 
 	@Override
 	public Set<Move> getLegalMoves(King piece) {
-		return null;
+		final Set<Move> moves = new HashSet<Move>();
+		final Square pos = board.getPiecePosition(piece);
+		final int col = pos.getColumn(), row = pos.getRow();
+
+		addMove(piece, moves, col - 1, row + 1);
+		addMove(piece, moves, col, row + 1);
+		addMove(piece, moves, col + 1, row + 1);
+
+		addMove(piece, moves, col - 1, row);
+		addMove(piece, moves, col + 1, row);
+
+		addMove(piece, moves, col - 1, row - 1);
+		addMove(piece, moves, col, row - 1);
+		addMove(piece, moves, col + 1, row - 1);
+
+		return moves;
 	}
 
 	@Override
@@ -88,6 +103,10 @@ public class DefaultMoveDirector implements MoveDirector {
 
 	private boolean addCaptureMove(Piece piece, Collection<Move> moves, int col, int row) {
 		return addMove(piece, moves, col, row, true, true);
+	}
+
+	private boolean addMove(Piece piece, Collection<Move> moves, int col, int row) {
+		return addMove(piece, moves, col, row, true, false);
 	}
 
 	private boolean addMove(Piece piece, Collection<Move> moves, int col, int row, boolean canCapture, boolean captureOnly) {
