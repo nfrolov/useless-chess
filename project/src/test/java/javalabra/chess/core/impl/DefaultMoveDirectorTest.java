@@ -11,6 +11,7 @@ import javalabra.chess.domain.King;
 import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Pawn;
 import javalabra.chess.domain.Piece;
+import javalabra.chess.domain.Rook;
 import javalabra.chess.domain.Square;
 
 import org.hamcrest.Description;
@@ -273,6 +274,22 @@ public class DefaultMoveDirectorTest {
 		assertThat(moves, containsInAnyOrder(
 				moveTo(6, 7),
 				moveTo(6, 6), moveTo(7, 6)
+				));
+	}
+
+	@Test
+	public void rookCanMakeAllLegalMoves() {
+		piece = new Rook(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(5, 5));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(14));
+		assertThat(moves, containsInAnyOrder(
+				moveTo(5, 7), moveTo(5, 6),
+				moveTo(5, 0), moveTo(5, 1), moveTo(5, 2), moveTo(5, 3), moveTo(5, 4),
+				moveTo(0, 5), moveTo(1, 5), moveTo(2, 5), moveTo(3, 5), moveTo(4, 5),
+				moveTo(6, 5), moveTo(7, 5)
 				));
 	}
 
