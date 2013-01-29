@@ -31,6 +31,11 @@ public abstract class AbstractMove implements Move {
 	}
 
 	@Override
+	public String toString() {
+		return source.toString() + destination.toString();
+	}
+
+	@Override
 	public abstract void perform(Board board);
 
 }
