@@ -16,6 +16,6 @@ public abstract class Piece {
 		return color;
 	}
 
-	public abstract Set<Square> getLegalMoves(MoveDirector director);
+	public abstract Set<Move> getLegalMoves(MoveDirector director);
 
 }

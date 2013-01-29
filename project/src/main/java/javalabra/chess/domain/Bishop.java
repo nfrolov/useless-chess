@@ -11,7 +11,7 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public Set<Square> getLegalMoves(MoveDirector director) {
+	public Set<Move> getLegalMoves(MoveDirector director) {
 		return director.getLegalMoves(this);
 	}
 
