@@ -53,8 +53,7 @@ public class DefaultMoveDirector implements MoveDirector {
 		final Square pos = board.getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addVerticalMoves(piece, moves, col, row);
-		addHorizontalMoves(piece, moves, col, row);
+		addStraightMoves(piece, moves, col, row);
 		addDiagonalMoves(piece, moves, col, row);
 
 		return moves;
@@ -66,8 +65,7 @@ public class DefaultMoveDirector implements MoveDirector {
 		final Square pos = board.getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addVerticalMoves(piece, moves, col, row);
-		addHorizontalMoves(piece, moves, col, row);
+		addStraightMoves(piece, moves, col, row);
 
 		return moves;
 	}
@@ -130,24 +128,21 @@ public class DefaultMoveDirector implements MoveDirector {
 		return addMove(piece, moves, col, row, true, false);
 	}
 
-	private void addVerticalMoves(Piece piece, Collection<Move> moves, int col, int row) {
-		for (int i = row + 1; addMove(piece, moves, col, i); ++i);
-		for (int i = row - 1; addMove(piece, moves, col, i); --i);
-	}
-
-	private void addHorizontalMoves(Piece piece, Collection<Move> moves, int col, int row) {
-		for (int i = col + 1; addMove(piece, moves, i, row); ++i);
-		for (int i = col - 1; addMove(piece, moves, i, row); --i);
+	private void addStraightMoves(Piece piece, Collection<Move> moves, int col, int row) {
+		addLineMoves(piece, moves, col, row, 0, -1);
+		addLineMoves(piece, moves, col, row, +1, 0);
+		addLineMoves(piece, moves, col, row, 0, +1);
+		addLineMoves(piece, moves, col, row, -1, 0);
 	}
 
 	private void addDiagonalMoves(Piece piece, Collection<Move> moves, int col, int row) {
-		addDiagonalMoves(piece, moves, col, row, -1, -1);
-		addDiagonalMoves(piece, moves, col, row, -1, +1);
-		addDiagonalMoves(piece, moves, col, row, +1, -1);
-		addDiagonalMoves(piece, moves, col, row, +1, +1);
+		addLineMoves(piece, moves, col, row, -1, -1);
+		addLineMoves(piece, moves, col, row, -1, +1);
+		addLineMoves(piece, moves, col, row, +1, -1);
+		addLineMoves(piece, moves, col, row, +1, +1);
 	}
 
-	private void addDiagonalMoves(Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
+	private void addLineMoves(Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
 		do {
 			col += deltaCol;
 			row += deltaRow;
