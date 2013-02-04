@@ -20,6 +20,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("unchecked")
 public class DefaultMoveDirectorTest {
 
 	public static class MoveToMatcher extends TypeSafeMatcher<Move> {
@@ -75,7 +76,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(2));
-		assertThat(moves, containsInAnyOrder(moveTo(1, 2), moveTo(1, 3)));
+		assertThat(moves, hasItems(
+				moveTo(1, 2), moveTo(1, 3)
+				));
 	}
 
 	@Test
@@ -87,7 +90,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(1));
-		assertThat(moves, contains(moveTo(1, 2)));
+		assertThat(moves, hasItems(
+				moveTo(1, 2)
+				));
 	}
 
 	@Test
@@ -109,7 +114,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(1));
-		assertThat(moves, contains(moveTo(1, 3)));
+		assertThat(moves, hasItems(
+				moveTo(1, 3)
+				));
 	}
 
 	@Test
@@ -133,7 +140,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(3));
-		assertThat(moves, containsInAnyOrder(moveTo(0, 3), moveTo(1, 3), moveTo(2, 3)));
+		assertThat(moves, hasItems(
+				moveTo(0, 3), moveTo(1, 3), moveTo(2, 3)
+				));
 	}
 
 	@Test
@@ -147,7 +156,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(2));
-		assertThat(moves, containsInAnyOrder(moveTo(0, 3), moveTo(2, 3)));
+		assertThat(moves, hasItems(
+				moveTo(0, 3), moveTo(2, 3)
+				));
 	}
 
 	@Test
@@ -158,7 +169,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(2));
-		assertThat(moves, containsInAnyOrder(moveTo(1, 5), moveTo(1, 4)));
+		assertThat(moves, hasItems(
+				moveTo(1, 5), moveTo(1, 4)
+				));
 	}
 
 	@Test
@@ -169,7 +182,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(1));
-		assertThat(moves, contains(moveTo(1, 4)));
+		assertThat(moves, hasItems(
+				moveTo(1, 4)
+				));
 	}
 
 	@Test
@@ -192,7 +207,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(1));
-		assertThat(moves, contains(moveTo(1, 5)));
+		assertThat(moves, hasItems(
+				moveTo(1, 5)
+				));
 	}
 
 	@Test
@@ -216,7 +233,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(3));
-		assertThat(moves, containsInAnyOrder(moveTo(0, 4), moveTo(1, 4), moveTo(2, 4)));
+		assertThat(moves, hasItems(
+				moveTo(0, 4), moveTo(1, 4), moveTo(2, 4)
+				));
 	}
 
 	@Test
@@ -230,7 +249,9 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(2));
-		assertThat(moves, containsInAnyOrder(moveTo(0, 4), moveTo(2, 4)));
+		assertThat(moves, hasItems(
+				moveTo(0, 4), moveTo(2, 4)
+				));
 	}
 
 	@Test
@@ -241,7 +262,7 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(8));
-		assertThat(moves, containsInAnyOrder(
+		assertThat(moves, hasItems(
 				moveTo(1, 3), moveTo(2, 3), moveTo(3, 3),
 				moveTo(1, 2), moveTo(3, 2),
 				moveTo(1, 1), moveTo(2, 1), moveTo(3, 1)
@@ -256,7 +277,7 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(5));
-		assertThat(moves, containsInAnyOrder(
+		assertThat(moves, hasItems(
 				moveTo(0, 3), moveTo(1, 3),
 				moveTo(1, 2),
 				moveTo(0, 1), moveTo(1, 1)
@@ -271,7 +292,7 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(3));
-		assertThat(moves, containsInAnyOrder(
+		assertThat(moves, hasItems(
 				moveTo(6, 7),
 				moveTo(6, 6), moveTo(7, 6)
 				));
@@ -285,7 +306,7 @@ public class DefaultMoveDirectorTest {
 		moves = piece.getLegalMoves(director);
 
 		assertThat(moves, hasSize(14));
-		assertThat(moves, containsInAnyOrder(
+		assertThat(moves, hasItems(
 				moveTo(5, 7), moveTo(5, 6),
 				moveTo(5, 0), moveTo(5, 1), moveTo(5, 2), moveTo(5, 3), moveTo(5, 4),
 				moveTo(0, 5), moveTo(1, 5), moveTo(2, 5), moveTo(3, 5), moveTo(4, 5),
