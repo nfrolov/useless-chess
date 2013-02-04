@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Set;
 
+import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
 import javalabra.chess.domain.King;
@@ -311,6 +312,22 @@ public class DefaultMoveDirectorTest {
 				moveTo(5, 0), moveTo(5, 1), moveTo(5, 2), moveTo(5, 3), moveTo(5, 4),
 				moveTo(0, 5), moveTo(1, 5), moveTo(2, 5), moveTo(3, 5), moveTo(4, 5),
 				moveTo(6, 5), moveTo(7, 5)
+				));
+	}
+
+	@Test
+	public void bishopCanMakeAllLegalMoves() {
+		piece = new Bishop(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(4, 2));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(11));
+		assertThat(moves, hasItems(
+				moveTo(3, 1), moveTo(2, 0),
+				moveTo(5, 1), moveTo(6, 0),
+				moveTo(3, 3), moveTo(2, 4), moveTo(1, 5), moveTo(0, 6),
+				moveTo(5, 3), moveTo(6, 4), moveTo(7, 5)
 				));
 	}
 

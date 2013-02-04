@@ -71,7 +71,13 @@ public class DefaultMoveDirector implements MoveDirector {
 
 	@Override
 	public Set<Move> getLegalMoves(Bishop piece) {
-		return null;
+		final Set<Move> moves = new HashSet<Move>();
+		final Square pos = board.getPiecePosition(piece);
+		final int col = pos.getColumn(), row = pos.getRow();
+
+		addDiagonalMoves(piece, moves, col, row);
+
+		return moves;
 	}
 
 	@Override
@@ -124,6 +130,20 @@ public class DefaultMoveDirector implements MoveDirector {
 	private void addHorizontalMoves(Piece piece, Collection<Move> moves, int col, int row) {
 		for (int i = col + 1; addMove(piece, moves, i, row); ++i);
 		for (int i = col - 1; addMove(piece, moves, i, row); --i);
+	}
+
+	private void addDiagonalMoves(Piece piece, Collection<Move> moves, int col, int row) {
+		addDiagonalMoves(piece, moves, col, row, -1, -1);
+		addDiagonalMoves(piece, moves, col, row, -1, +1);
+		addDiagonalMoves(piece, moves, col, row, +1, -1);
+		addDiagonalMoves(piece, moves, col, row, +1, +1);
+	}
+
+	private void addDiagonalMoves(Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
+		do {
+			col += deltaCol;
+			row += deltaRow;
+		} while (addMove(piece, moves, col, row));
 	}
 
 	private boolean addMove(Piece piece, Collection<Move> moves, int col, int row, boolean canCapture, boolean captureOnly) {
