@@ -9,6 +9,7 @@ import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
 import javalabra.chess.domain.King;
+import javalabra.chess.domain.Knight;
 import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Pawn;
 import javalabra.chess.domain.Piece;
@@ -349,6 +350,20 @@ public class DefaultMoveDirectorTest {
 				moveTo(2, 5), moveTo(2, 6), moveTo(2, 7),
 				moveTo(1, 5), moveTo(0, 6),
 				moveTo(1, 4), moveTo(0, 4)
+				));
+	}
+
+	@Test
+	public void knightCanMakeAllLegalMoves() {
+		piece = new Knight(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(3, 3));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(8));
+		assertThat(moves, hasItems(
+				moveTo(1, 2), moveTo(2, 1), moveTo(4, 1), moveTo(5, 2),
+				moveTo(5, 4), moveTo(4, 5), moveTo(2, 5), moveTo(1, 4)
 				));
 	}
 

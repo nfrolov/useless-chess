@@ -72,7 +72,21 @@ public class DefaultMoveDirector implements MoveDirector {
 
 	@Override
 	public Set<Move> getLegalMoves(Knight piece) {
-		return null;
+		final Set<Move> moves = new HashSet<Move>();
+		final Square pos = board.getPiecePosition(piece);
+		final int col = pos.getColumn(), row = pos.getRow();
+
+		addMove(piece, moves, col - 2, row - 1);
+		addMove(piece, moves, col - 1, row - 2);
+		addMove(piece, moves, col + 1, row - 2);
+		addMove(piece, moves, col + 2, row - 1);
+
+		addMove(piece, moves, col + 2, row + 1);
+		addMove(piece, moves, col + 1, row + 2);
+		addMove(piece, moves, col - 1, row + 2);
+		addMove(piece, moves, col - 2, row + 1);
+
+		return moves;
 	}
 
 	@Override
