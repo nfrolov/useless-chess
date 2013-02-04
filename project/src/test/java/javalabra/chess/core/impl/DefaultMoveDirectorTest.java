@@ -12,6 +12,7 @@ import javalabra.chess.domain.King;
 import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Pawn;
 import javalabra.chess.domain.Piece;
+import javalabra.chess.domain.Queen;
 import javalabra.chess.domain.Rook;
 import javalabra.chess.domain.Square;
 
@@ -328,6 +329,26 @@ public class DefaultMoveDirectorTest {
 				moveTo(5, 1), moveTo(6, 0),
 				moveTo(3, 3), moveTo(2, 4), moveTo(1, 5), moveTo(0, 6),
 				moveTo(5, 3), moveTo(6, 4), moveTo(7, 5)
+				));
+	}
+
+	@Test
+	public void queenCanMakeAllLegalMoves() {
+		piece = new Queen(Color.WHITE);
+		board.setPiecePosition(piece, board.getSquare(2, 4));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(25));
+		assertThat(moves, hasItems(
+				moveTo(1, 3), moveTo(0, 2),
+				moveTo(2, 3), moveTo(2, 2), moveTo(2, 1), moveTo(2, 0),
+				moveTo(3, 3), moveTo(4, 2), moveTo(5, 1), moveTo(6, 0),
+				moveTo(3, 4), moveTo(4, 4), moveTo(5, 4), moveTo(6, 4), moveTo(7, 4),
+				moveTo(3, 5), moveTo(4, 6), moveTo(5, 7),
+				moveTo(2, 5), moveTo(2, 6), moveTo(2, 7),
+				moveTo(1, 5), moveTo(0, 6),
+				moveTo(1, 4), moveTo(0, 4)
 				));
 	}
 

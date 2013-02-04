@@ -49,7 +49,15 @@ public class DefaultMoveDirector implements MoveDirector {
 
 	@Override
 	public Set<Move> getLegalMoves(Queen piece) {
-		return null;
+		final Set<Move> moves = new HashSet<Move>();
+		final Square pos = board.getPiecePosition(piece);
+		final int col = pos.getColumn(), row = pos.getRow();
+
+		addVerticalMoves(piece, moves, col, row);
+		addHorizontalMoves(piece, moves, col, row);
+		addDiagonalMoves(piece, moves, col, row);
+
+		return moves;
 	}
 
 	@Override
