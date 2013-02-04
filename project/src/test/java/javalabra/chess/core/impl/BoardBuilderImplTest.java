@@ -18,18 +18,18 @@ import javalabra.chess.domain.Square;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DefaultBoardBuilderTest {
+public class BoardBuilderImplTest {
 
 	PlayerWhite white;
 	PlayerBlack black;
-	DefaultBoardBuilder builder;
+	BoardBuilderImpl builder;
 	Board board;
 
 	@Before
 	public void setUp() throws Exception {
 		white = new PlayerWhite();
 		black = new PlayerBlack();
-		builder = new DefaultBoardBuilder();
+		builder = new BoardBuilderImpl();
 		board = builder.build(white, black);
 	}
 

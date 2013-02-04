@@ -15,7 +15,7 @@ import javalabra.chess.domain.PlayerWhite;
 import javalabra.chess.domain.Queen;
 import javalabra.chess.domain.Rook;
 
-public class DefaultBoardBuilder implements BoardBuilder {
+public class BoardBuilderImpl implements BoardBuilder {
 
 	@Override
 	public Board build(PlayerWhite white, PlayerBlack black) {
