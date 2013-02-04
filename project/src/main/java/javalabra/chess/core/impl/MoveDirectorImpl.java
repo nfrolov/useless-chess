@@ -19,11 +19,11 @@ import javalabra.chess.domain.Queen;
 import javalabra.chess.domain.Rook;
 import javalabra.chess.domain.Square;
 
-public class DefaultMoveDirector implements MoveDirector {
+public class MoveDirectorImpl implements MoveDirector {
 
 	private final Board board;
 
-	public DefaultMoveDirector(Board board) {
+	public MoveDirectorImpl(Board board) {
 		this.board = board;
 	}
 

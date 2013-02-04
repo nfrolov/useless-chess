@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("unchecked")
-public class DefaultMoveDirectorTest {
+public class MoveDirectorImplTest {
 
 	public static class MoveToMatcher extends TypeSafeMatcher<Move> {
 
@@ -58,7 +58,7 @@ public class DefaultMoveDirectorTest {
 	}
 
 	Board board;
-	DefaultMoveDirector director;
+	MoveDirectorImpl director;
 
 	Set<Move> moves;
 	Piece piece;
@@ -66,7 +66,7 @@ public class DefaultMoveDirectorTest {
 	@Before
 	public void setUp() throws Exception {
 		board = new Board();
-		director = new DefaultMoveDirector(board);
+		director = new MoveDirectorImpl(board);
 		moves = null;
 		piece = null;
 	}
