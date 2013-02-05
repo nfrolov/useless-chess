@@ -52,4 +52,31 @@ public class Square {
 		return String.format("%c%c", getFile(), getRank());
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + column;
+		result = prime * result + row;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Square other = (Square) obj;
+		if (column != other.column) {
+			return false;
+		}
+		if (row != other.row) {
+			return false;
+		}
+		return true;
+	}
+
 }
