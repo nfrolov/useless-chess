@@ -19,6 +19,9 @@ public class CaptureMove extends AbstractMove {
 
 	@Override
 	public void perform(final Board board) {
+		board.setSquare(board.getPiecePosition(captured), null);
+		board.setSquare(source, null);
+		board.setSquare(destination, piece);
 	}
 
 }

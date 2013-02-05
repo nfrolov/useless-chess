@@ -12,6 +12,8 @@ public class NormalMove extends AbstractMove {
 
 	@Override
 	public void perform(final Board board) {
+		board.setSquare(source, null);
+		board.setSquare(destination, piece);
 	}
 
 }

@@ -21,6 +21,7 @@ public abstract class AbstractMove implements Move {
 		return piece;
 	}
 
+	@Override
 	public Square getSource() {
 		return source;
 	}
