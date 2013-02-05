@@ -13,6 +13,12 @@ public class Square {
 		this.piece = null;
 	}
 
+	public Square(final Square origin) {
+		column = origin.column;
+		row = origin.row;
+		piece = origin.piece;
+	}
+
 	public int getColumn() {
 		return column;
 	}
