@@ -44,6 +44,7 @@ public class Board {
 		return null;
 	}
 
+	@Deprecated
 	public void setPiecePosition(final Piece piece, final Square square) {
 		setSquare(square, piece);
 	}
@@ -59,6 +60,17 @@ public class Board {
 		}
 
 		return pieces;
+	}
+
+	public Square getKingPosition(Color color) {
+		// FIXME find better way
+		for (final Square square : squares) {
+			Piece piece = square.getPiece();
+			if (null != piece && piece.getColor() == color && piece instanceof King) {
+				return square;
+			}
+		}
+		throw new IllegalStateException("cannot find king");
 	}
 
 	public Board copy() {
