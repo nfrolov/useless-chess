@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javalabra.chess.core.MoveDirector;
 
+/**
+ * Represents king.
+ *
+ * @author Nikita Frolov
+ */
 public class King extends Piece {
 
 	public King(Color color) {

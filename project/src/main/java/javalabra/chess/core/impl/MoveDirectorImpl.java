@@ -19,6 +19,11 @@ import javalabra.chess.domain.Queen;
 import javalabra.chess.domain.Rook;
 import javalabra.chess.domain.Square;
 
+/**
+ * Standard implementation of move director.
+ *
+ * @author Nikita Frolov
+ */
 public class MoveDirectorImpl implements MoveDirector {
 
 	private final Board board;

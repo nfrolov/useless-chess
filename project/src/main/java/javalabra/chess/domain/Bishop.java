@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javalabra.chess.core.MoveDirector;
 
+/**
+ * Represents bishop.
+ *
+ * @author Nikita Frolov
+ */
 public class Bishop extends Piece {
 
 	public Bishop(Color color) {

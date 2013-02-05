@@ -5,6 +5,11 @@ import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Square;
 
+/**
+ * Represents abstract move.
+ *
+ * @author Nikita Frolov
+ */
 public abstract class AbstractMove implements Move {
 
 	protected final Piece piece;

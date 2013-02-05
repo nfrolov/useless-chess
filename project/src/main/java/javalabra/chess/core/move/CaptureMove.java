@@ -4,6 +4,11 @@ import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Square;
 
+/**
+ * Represents capture move.
+ *
+ * @author Nikita Frolov
+ */
 public class CaptureMove extends AbstractMove {
 
 	protected final Piece captured;

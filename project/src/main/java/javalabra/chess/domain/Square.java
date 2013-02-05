@@ -1,5 +1,10 @@
 package javalabra.chess.domain;
 
+/**
+ * Represents one square on the board.
+ *
+ * @author Nikita Frolov
+ */
 public class Square {
 
 	private final int column; // file

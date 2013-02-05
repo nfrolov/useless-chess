@@ -1,5 +1,9 @@
 package javalabra.chess.domain;
 
+/**
+ *
+ * @author Nikita Frolov
+ */
 public enum Color {
 
 	WHITE, BLACK;

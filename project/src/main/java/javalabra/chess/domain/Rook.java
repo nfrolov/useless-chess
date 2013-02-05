@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javalabra.chess.core.MoveDirector;
 
+/**
+ * Represents rook.
+ *
+ * @author Nikita Frolov
+ */
 public class Rook extends Piece {
 
 	public Rook(Color color) {

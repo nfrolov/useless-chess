@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javalabra.chess.core.MoveDirector;
 
+/**
+ * Represents queen.
+ *
+ * @author Nikita Frolov
+ */
 public class Queen extends Piece {
 
 	public Queen(Color color) {

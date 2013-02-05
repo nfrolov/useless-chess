@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javalabra.chess.core.MoveDirector;
 
+/**
+ * Represents knight.
+ *
+ * @author Nikita Frolov
+ */
 public class Knight extends Piece {
 
 	public Knight(Color color) {

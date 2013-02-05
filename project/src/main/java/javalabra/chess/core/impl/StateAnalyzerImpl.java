@@ -10,6 +10,11 @@ import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Square;
 
+/**
+ * Standard implementation of the state analyzer.
+ *
+ * @author Nikita Frolov
+ */
 public class StateAnalyzerImpl implements StateAnalyzer {
 
 	private final Board board;
