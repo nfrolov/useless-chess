@@ -354,6 +354,23 @@ public class MoveDirectorImplTest {
 	}
 
 	@Test
+	public void queenMovesCanBeBlocked() {
+		piece = new Queen(Color.WHITE);
+		board.setSquare(0, 0, piece);
+		board.setSquare(2, 0, new Rook(Color.WHITE));
+		board.setSquare(3, 3, new Pawn(Color.BLACK));
+		board.setSquare(0, 1, new Pawn(Color.WHITE));
+
+		moves = piece.getLegalMoves(director);
+
+		assertThat(moves, hasSize(4));
+		assertThat(moves, hasItems(
+				moveTo(1, 1),
+				moveTo(1, 1), moveTo(2, 2), moveTo(3, 3)
+				));
+	}
+
+	@Test
 	public void knightCanMakeAllLegalMoves() {
 		piece = new Knight(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(3, 3));

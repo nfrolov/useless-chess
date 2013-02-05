@@ -169,26 +169,21 @@ public class MoveDirectorImpl implements MoveDirector {
 		}
 
 		final Square src = board.getPiecePosition(piece), dst = board.getSquare(col, row);
-		Move move = null;
 
 		if (dst.isOccupied()) {
 			final Piece occupier = dst.getPiece();
 			if (canCapture && occupier.getColor() != piece.getColor()) {
-				move = new CaptureMove(piece, src, dst, occupier);
+				moves.add(new CaptureMove(piece, src, dst, occupier));
 			}
-		} else if (!captureOnly) {
-			move = new NormalMove(piece, src, dst);
-		}
-
-		if (null == move) {
 			return false;
+		} else if (!captureOnly) {
+			moves.add(new NormalMove(piece, src, dst));
+			return true;
 		}
 
 		// TODO add checks for check and checkmate
 
-		moves.add(move);
-
-		return true;
+		return false;
 	}
 
 }
