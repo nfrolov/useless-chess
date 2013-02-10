@@ -13,23 +13,26 @@ public interface StateAnalyzer {
 	 * Checks if the king of specified color is in check.
 	 *
 	 * @param	color	color of the king to check
+	 * @param	context	context representing game's current state
 	 * @return			true if in check
 	 */
-	boolean isCheck(Color color);
+	boolean isCheck(Color color, GameContext context);
 
 	/**
 	 * Checks if the any king is checkmated.
 	 *
+	 * @param	context	context representing game's current state
 	 * @return			true if checkmated
 	 */
-	boolean isCheckmate();
+	boolean isCheckmate(GameContext context);
 
 	/**
 	 * Checks if the king of specified color is checkmated.
 	 *
 	 * @param	color	color of the king to check
+	 * @param	context	context representing game's current state
 	 * @return			true if checkmated
 	 */
-	boolean isCheckmate(Color color);
+	boolean isCheckmate(Color color, GameContext context);
 
 }

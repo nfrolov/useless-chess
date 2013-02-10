@@ -2,6 +2,7 @@ package javalabra.chess.domain;
 
 import java.util.Set;
 
+import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
 
 /**
@@ -33,8 +34,9 @@ public abstract class Piece {
 	 * Returns all valid moves for the piece.
 	 *
 	 * @param 	director	director which is responsible for moves calculation
+	 * @param	context		context representing game's current state
 	 * @return 				collection of valid moves
 	 */
-	public abstract Set<Move> getLegalMoves(MoveDirector director);
+	public abstract Set<Move> getLegalMoves(MoveDirector director, GameContext context);
 
 }

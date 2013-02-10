@@ -21,48 +21,54 @@ public interface MoveDirector {
 	 * Calculates moves for king.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(King piece);
+	Set<Move> getLegalMoves(King piece, GameContext context);
 
 	/**
 	 * Calculates moves for queen.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Queen piece);
+	Set<Move> getLegalMoves(Queen piece, GameContext context);
 
 	/**
 	 * Calculates moves for rook.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Rook piece);
+	Set<Move> getLegalMoves(Rook piece, GameContext context);
 
 	/**
 	 * Calculates moves for knight.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Knight piece);
+	Set<Move> getLegalMoves(Knight piece, GameContext context);
 
 	/**
 	 * Calculates moves for bishop.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Bishop piece);
+	Set<Move> getLegalMoves(Bishop piece, GameContext context);
 
 	/**
 	 * Calculates moves for pawn.
 	 *
 	 * @param	piece
+	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Pawn piece);
+	Set<Move> getLegalMoves(Pawn piece, GameContext context);
 
 }

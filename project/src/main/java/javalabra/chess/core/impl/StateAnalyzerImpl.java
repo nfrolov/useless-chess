@@ -2,6 +2,7 @@ package javalabra.chess.core.impl;
 
 import java.util.Collection;
 
+import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
 import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.domain.Board;
@@ -17,16 +18,15 @@ import javalabra.chess.domain.Square;
  */
 public class StateAnalyzerImpl implements StateAnalyzer {
 
-	private final Board board;
 	private final MoveDirector director;
 
-	public StateAnalyzerImpl(final Board board, final MoveDirector director) {
-		this.board = board;
+	public StateAnalyzerImpl(final MoveDirector director) {
 		this.director = director;
 	}
 
 	@Override
-	public boolean isCheck(final Color color) {
+	public boolean isCheck(final Color color, final GameContext context) {
+		final Board board = context.getBoard();
 		final Square king = board.getKingPosition(color);
 		final Collection<Piece> pieces = board.getPieces();
 
@@ -34,7 +34,7 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 			if (color == piece.getColor()) {
 				continue;
 			}
-			final Collection<Move> moves = piece.getLegalMoves(director);
+			final Collection<Move> moves = piece.getLegalMoves(director, context);
 			if (contains(moves, king)) {
 				return true;
 			}
@@ -44,12 +44,12 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 	}
 
 	@Override
-	public boolean isCheckmate() {
-		return isCheckmate(Color.WHITE) || isCheckmate(Color.BLACK);
+	public boolean isCheckmate(final GameContext context) {
+		return isCheckmate(Color.WHITE, context) || isCheckmate(Color.BLACK, context);
 	}
 
 	@Override
-	public boolean isCheckmate(final Color color) {
+	public boolean isCheckmate(final Color color, final GameContext context) {
 		return false;
 	}
 

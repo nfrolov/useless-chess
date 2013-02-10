@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
 import javalabra.chess.core.move.CaptureMove;
 import javalabra.chess.core.move.NormalMove;
@@ -26,107 +27,104 @@ import javalabra.chess.domain.Square;
  */
 public class MoveDirectorImpl implements MoveDirector {
 
-	private final Board board;
-
-	public MoveDirectorImpl(Board board) {
-		this.board = board;
+	public MoveDirectorImpl() {
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(King piece) {
+	public Set<Move> getLegalMoves(final King piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addMove(piece, moves, col - 1, row + 1);
-		addMove(piece, moves, col, row + 1);
-		addMove(piece, moves, col + 1, row + 1);
+		addMove(context, piece, moves, col - 1, row + 1);
+		addMove(context, piece, moves, col, row + 1);
+		addMove(context, piece, moves, col + 1, row + 1);
 
-		addMove(piece, moves, col - 1, row);
-		addMove(piece, moves, col + 1, row);
+		addMove(context, piece, moves, col - 1, row);
+		addMove(context, piece, moves, col + 1, row);
 
-		addMove(piece, moves, col - 1, row - 1);
-		addMove(piece, moves, col, row - 1);
-		addMove(piece, moves, col + 1, row - 1);
+		addMove(context, piece, moves, col - 1, row - 1);
+		addMove(context, piece, moves, col, row - 1);
+		addMove(context, piece, moves, col + 1, row - 1);
 
 		return moves;
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(Queen piece) {
+	public Set<Move> getLegalMoves(final Queen piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addStraightMoves(piece, moves, col, row);
-		addDiagonalMoves(piece, moves, col, row);
+		addStraightMoves(context, piece, moves, col, row);
+		addDiagonalMoves(context, piece, moves, col, row);
 
 		return moves;
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(Rook piece) {
+	public Set<Move> getLegalMoves(final Rook piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addStraightMoves(piece, moves, col, row);
+		addStraightMoves(context, piece, moves, col, row);
 
 		return moves;
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(Knight piece) {
+	public Set<Move> getLegalMoves(final Knight piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addMove(piece, moves, col - 2, row - 1);
-		addMove(piece, moves, col - 1, row - 2);
-		addMove(piece, moves, col + 1, row - 2);
-		addMove(piece, moves, col + 2, row - 1);
+		addMove(context, piece, moves, col - 2, row - 1);
+		addMove(context, piece, moves, col - 1, row - 2);
+		addMove(context, piece, moves, col + 1, row - 2);
+		addMove(context, piece, moves, col + 2, row - 1);
 
-		addMove(piece, moves, col + 2, row + 1);
-		addMove(piece, moves, col + 1, row + 2);
-		addMove(piece, moves, col - 1, row + 2);
-		addMove(piece, moves, col - 2, row + 1);
+		addMove(context, piece, moves, col + 2, row + 1);
+		addMove(context, piece, moves, col + 1, row + 2);
+		addMove(context, piece, moves, col - 1, row + 2);
+		addMove(context, piece, moves, col - 2, row + 1);
 
 		return moves;
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(Bishop piece) {
+	public Set<Move> getLegalMoves(final Bishop piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
-		addDiagonalMoves(piece, moves, col, row);
+		addDiagonalMoves(context, piece, moves, col, row);
 
 		return moves;
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(Pawn piece) {
+	public Set<Move> getLegalMoves(final Pawn piece, final GameContext context) {
 		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = board.getPiecePosition(piece);
+		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int col = pos.getColumn(), row = pos.getRow();
 
 		if (Color.WHITE == piece.getColor()) {
-			if (addNormalMove(piece, moves, col, row + 1)) {
+			if (addNormalMove(context, piece, moves, col, row + 1)) {
 				if (1 == row) {
-					addNormalMove(piece, moves, col, row + 2);
+					addNormalMove(context, piece, moves, col, row + 2);
 				}
 			}
-			addCaptureMove(piece, moves, col - 1, row + 1);
-			addCaptureMove(piece, moves, col + 1, row + 1);
+			addCaptureMove(context, piece, moves, col - 1, row + 1);
+			addCaptureMove(context, piece, moves, col + 1, row + 1);
 		} else {
-			if (addNormalMove(piece, moves, col, row - 1)) {
+			if (addNormalMove(context, piece, moves, col, row - 1)) {
 				if (6 == row) {
-					addNormalMove(piece, moves, col, row - 2);
+					addNormalMove(context, piece, moves, col, row - 2);
 				}
 			}
-			addCaptureMove(piece, moves, col - 1, row - 1);
-			addCaptureMove(piece, moves, col + 1, row - 1);
+			addCaptureMove(context, piece, moves, col - 1, row - 1);
+			addCaptureMove(context, piece, moves, col + 1, row - 1);
 		}
 
 		// TODO attack
@@ -135,44 +133,45 @@ public class MoveDirectorImpl implements MoveDirector {
 		return moves;
 	}
 
-	private boolean addNormalMove(Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(piece, moves, col, row, false, false);
+	private boolean addNormalMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
+		return addMove(context, piece, moves, col, row, false, false);
 	}
 
-	private boolean addCaptureMove(Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(piece, moves, col, row, true, true);
+	private boolean addCaptureMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
+		return addMove(context, piece, moves, col, row, true, true);
 	}
 
-	private boolean addMove(Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(piece, moves, col, row, true, false);
+	private boolean addMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
+		return addMove(context, piece, moves, col, row, true, false);
 	}
 
-	private void addStraightMoves(Piece piece, Collection<Move> moves, int col, int row) {
-		addLineMoves(piece, moves, col, row, 0, -1);
-		addLineMoves(piece, moves, col, row, +1, 0);
-		addLineMoves(piece, moves, col, row, 0, +1);
-		addLineMoves(piece, moves, col, row, -1, 0);
+	private void addStraightMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
+		addLineMoves(context, piece, moves, col, row, 0, -1);
+		addLineMoves(context, piece, moves, col, row, +1, 0);
+		addLineMoves(context, piece, moves, col, row, 0, +1);
+		addLineMoves(context, piece, moves, col, row, -1, 0);
 	}
 
-	private void addDiagonalMoves(Piece piece, Collection<Move> moves, int col, int row) {
-		addLineMoves(piece, moves, col, row, -1, -1);
-		addLineMoves(piece, moves, col, row, -1, +1);
-		addLineMoves(piece, moves, col, row, +1, -1);
-		addLineMoves(piece, moves, col, row, +1, +1);
+	private void addDiagonalMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
+		addLineMoves(context, piece, moves, col, row, -1, -1);
+		addLineMoves(context, piece, moves, col, row, -1, +1);
+		addLineMoves(context, piece, moves, col, row, +1, -1);
+		addLineMoves(context, piece, moves, col, row, +1, +1);
 	}
 
-	private void addLineMoves(Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
+	private void addLineMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
 		do {
 			col += deltaCol;
 			row += deltaRow;
-		} while (addMove(piece, moves, col, row));
+		} while (addMove(context, piece, moves, col, row));
 	}
 
-	private boolean addMove(Piece piece, Collection<Move> moves, int col, int row, boolean canCapture, boolean captureOnly) {
+	private boolean addMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row, boolean canCapture, boolean captureOnly) {
 		if (col < 0 || col > 7 || row < 0 || row > 7) {
 			return false;
 		}
 
+		final Board board = context.getBoard();
 		final Square src = board.getPiecePosition(piece), dst = board.getSquare(col, row);
 
 		if (dst.isOccupied()) {

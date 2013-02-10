@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Set;
 
+import javalabra.chess.core.GameContext;
 import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
@@ -59,6 +60,7 @@ public class MoveDirectorImplTest {
 
 	Board board;
 	MoveDirectorImpl director;
+	GameContext context;
 
 	Set<Move> moves;
 	Piece piece;
@@ -66,7 +68,8 @@ public class MoveDirectorImplTest {
 	@Before
 	public void setUp() throws Exception {
 		board = new Board();
-		director = new MoveDirectorImpl(board);
+		context = new GameContextImpl(board);
+		director = new MoveDirectorImpl();
 		moves = null;
 		piece = null;
 	}
@@ -76,7 +79,7 @@ public class MoveDirectorImplTest {
 		piece = new Pawn(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(1, 1));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(2));
 		assertThat(moves, hasItems(
@@ -90,7 +93,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 1));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(1));
 		assertThat(moves, hasItems(
@@ -104,7 +107,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 1));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 2));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(0));
 	}
@@ -114,7 +117,7 @@ public class MoveDirectorImplTest {
 		piece = new Pawn(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(1, 2));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(1));
 		assertThat(moves, hasItems(
@@ -128,7 +131,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 2));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(0));
 	}
@@ -140,7 +143,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(0, 3));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(2, 3));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(3));
 		assertThat(moves, hasItems(
@@ -156,7 +159,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(2, 3));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(2));
 		assertThat(moves, hasItems(
@@ -169,7 +172,7 @@ public class MoveDirectorImplTest {
 		piece = new Pawn(Color.BLACK);
 		board.setPiecePosition(piece, board.getSquare(1, 6));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(2));
 		assertThat(moves, hasItems(
@@ -182,7 +185,7 @@ public class MoveDirectorImplTest {
 		piece = new Pawn(Color.BLACK);
 		board.setPiecePosition(piece, board.getSquare(1, 5));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(1));
 		assertThat(moves, hasItems(
@@ -196,7 +199,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 6));
 		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 5));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(0));
 	}
@@ -207,7 +210,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 6));
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 4));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(1));
 		assertThat(moves, hasItems(
@@ -221,7 +224,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(piece, board.getSquare(1, 6));
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 5));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(0));
 	}
@@ -233,7 +236,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(0, 4));
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(2, 4));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(3));
 		assertThat(moves, hasItems(
@@ -249,7 +252,7 @@ public class MoveDirectorImplTest {
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 4));
 		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(2, 4));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(2));
 		assertThat(moves, hasItems(
@@ -262,7 +265,7 @@ public class MoveDirectorImplTest {
 		piece = new King(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(2, 2));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(8));
 		assertThat(moves, hasItems(
@@ -277,7 +280,7 @@ public class MoveDirectorImplTest {
 		piece = new King(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(0, 2));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(5));
 		assertThat(moves, hasItems(
@@ -292,7 +295,7 @@ public class MoveDirectorImplTest {
 		piece = new King(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(7, 7));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(3));
 		assertThat(moves, hasItems(
@@ -306,7 +309,7 @@ public class MoveDirectorImplTest {
 		piece = new Rook(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(5, 5));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(14));
 		assertThat(moves, hasItems(
@@ -322,7 +325,7 @@ public class MoveDirectorImplTest {
 		piece = new Bishop(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(4, 2));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(11));
 		assertThat(moves, hasItems(
@@ -338,7 +341,7 @@ public class MoveDirectorImplTest {
 		piece = new Queen(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(2, 4));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(25));
 		assertThat(moves, hasItems(
@@ -361,7 +364,7 @@ public class MoveDirectorImplTest {
 		board.setSquare(3, 3, new Pawn(Color.BLACK));
 		board.setSquare(0, 1, new Pawn(Color.WHITE));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(4));
 		assertThat(moves, hasItems(
@@ -375,7 +378,7 @@ public class MoveDirectorImplTest {
 		piece = new Knight(Color.WHITE);
 		board.setPiecePosition(piece, board.getSquare(3, 3));
 
-		moves = piece.getLegalMoves(director);
+		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(8));
 		assertThat(moves, hasItems(
