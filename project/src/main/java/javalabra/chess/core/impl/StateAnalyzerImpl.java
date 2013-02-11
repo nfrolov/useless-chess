@@ -28,12 +28,9 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 	public boolean isCheck(final Color color, final GameContext context) {
 		final Board board = context.getBoard();
 		final Square king = board.getKingPosition(color);
-		final Collection<Piece> pieces = board.getPieces();
+		final Collection<Piece> pieces = board.getPieces(color.opposite());
 
 		for (final Piece piece : pieces) {
-			if (color == piece.getColor()) {
-				continue;
-			}
 			final Collection<Move> moves = piece.getLegalMoves(director, context);
 			if (contains(moves, king)) {
 				return true;

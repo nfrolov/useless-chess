@@ -98,14 +98,15 @@ public class Board {
 	/**
 	 * Returns all the pieces on the board.
 	 *
+	 * @param	color
 	 * @return			list of pieces
 	 */
-	public Collection<Piece> getPieces() {
+	public Collection<Piece> getPieces(final Color color) {
 		final Collection<Piece> pieces = new HashSet<Piece>(32);
 
 		for (final Square square : squares) {
 			Piece piece = square.getPiece();
-			if (null != piece) {
+			if (null != piece && color == piece.getColor()) {
 				pieces.add(piece);
 			}
 		}
