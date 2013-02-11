@@ -1,6 +1,5 @@
 package javalabra.chess.core.impl;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,162 +31,198 @@ public class MoveDirectorImpl implements MoveDirector {
 
 	@Override
 	public Set<Move> getLegalMoves(final King piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
-
-		addMove(context, piece, moves, col - 1, row + 1);
-		addMove(context, piece, moves, col, row + 1);
-		addMove(context, piece, moves, col + 1, row + 1);
-
-		addMove(context, piece, moves, col - 1, row);
-		addMove(context, piece, moves, col + 1, row);
-
-		addMove(context, piece, moves, col - 1, row - 1);
-		addMove(context, piece, moves, col, row - 1);
-		addMove(context, piece, moves, col + 1, row - 1);
-
-		return moves;
+		return newBuilder(piece, context)
+				.addMove(-1, +1)
+				.addMove(0, +1)
+				.addMove(+1, +1)
+				.addMove(-1, 0)
+				.addMove(+1, 0)
+				.addMove(-1, -1)
+				.addMove(0, -1)
+				.addMove(+1, -1)
+				.build();
 	}
 
 	@Override
 	public Set<Move> getLegalMoves(final Queen piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
-
-		addStraightMoves(context, piece, moves, col, row);
-		addDiagonalMoves(context, piece, moves, col, row);
-
-		return moves;
+		return newBuilder(piece, context)
+				.addStraightMoves()
+				.addDiagonalMoves()
+				.build();
 	}
 
 	@Override
 	public Set<Move> getLegalMoves(final Rook piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
-
-		addStraightMoves(context, piece, moves, col, row);
-
-		return moves;
+		return newBuilder(piece, context)
+				.addStraightMoves()
+				.build();
 	}
 
 	@Override
 	public Set<Move> getLegalMoves(final Knight piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
-
-		addMove(context, piece, moves, col - 2, row - 1);
-		addMove(context, piece, moves, col - 1, row - 2);
-		addMove(context, piece, moves, col + 1, row - 2);
-		addMove(context, piece, moves, col + 2, row - 1);
-
-		addMove(context, piece, moves, col + 2, row + 1);
-		addMove(context, piece, moves, col + 1, row + 2);
-		addMove(context, piece, moves, col - 1, row + 2);
-		addMove(context, piece, moves, col - 2, row + 1);
-
-		return moves;
+		return newBuilder(piece, context)
+				.addMove(-2, -1)
+				.addMove(-1, -2)
+				.addMove(+1, -2)
+				.addMove(+2, -1)
+				.addMove(+2, +1)
+				.addMove(+1, +2)
+				.addMove(-1, +2)
+				.addMove(-2, +1)
+				.build();
 	}
 
 	@Override
 	public Set<Move> getLegalMoves(final Bishop piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
-		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
-
-		addDiagonalMoves(context, piece, moves, col, row);
-
-		return moves;
+		return newBuilder(piece, context)
+				.addDiagonalMoves()
+				.build();
 	}
 
 	@Override
 	public Set<Move> getLegalMoves(final Pawn piece, final GameContext context) {
-		final Set<Move> moves = new HashSet<Move>();
+		final MoveSetBuilder builder = newBuilder(piece, context);
 		final Square pos = context.getBoard().getPiecePosition(piece);
-		final int col = pos.getColumn(), row = pos.getRow();
+		final int row = pos.getRow();
 
 		if (Color.WHITE == piece.getColor()) {
-			if (addNormalMove(context, piece, moves, col, row + 1)) {
+			if (builder.addNormalMove(0, +1).added()) {
 				if (1 == row) {
-					addNormalMove(context, piece, moves, col, row + 2);
+					builder.addNormalMove(0, +2);
 				}
 			}
-			addCaptureMove(context, piece, moves, col - 1, row + 1);
-			addCaptureMove(context, piece, moves, col + 1, row + 1);
+			builder.addCaptureMove(-1, +1);
+			builder.addCaptureMove(+1, +1);
 		} else {
-			if (addNormalMove(context, piece, moves, col, row - 1)) {
+			if (builder.addNormalMove(0, -1).added()) {
 				if (6 == row) {
-					addNormalMove(context, piece, moves, col, row - 2);
+					builder.addNormalMove(0, -2);
 				}
 			}
-			addCaptureMove(context, piece, moves, col - 1, row - 1);
-			addCaptureMove(context, piece, moves, col + 1, row - 1);
+			builder.addCaptureMove(-1, -1);
+			builder.addCaptureMove(+1, -1);
 		}
 
-		// TODO attack
 		// TODO en passant
 
-		return moves;
+		return builder.build();
 	}
 
-	private boolean addNormalMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(context, piece, moves, col, row, false, false);
+	private MoveSetBuilder newBuilder(final Piece piece, final GameContext context) {
+		return new MoveSetBuilder(piece, context);
 	}
 
-	private boolean addCaptureMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(context, piece, moves, col, row, true, true);
-	}
+	private class MoveSetBuilder {
 
-	private boolean addMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
-		return addMove(context, piece, moves, col, row, true, false);
-	}
+		private final Piece piece;
+		private final GameContext context;
+		private final Board board;
+		private final Square source;
 
-	private void addStraightMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
-		addLineMoves(context, piece, moves, col, row, 0, -1);
-		addLineMoves(context, piece, moves, col, row, +1, 0);
-		addLineMoves(context, piece, moves, col, row, 0, +1);
-		addLineMoves(context, piece, moves, col, row, -1, 0);
-	}
+		private final Set<Move> moves;
 
-	private void addDiagonalMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row) {
-		addLineMoves(context, piece, moves, col, row, -1, -1);
-		addLineMoves(context, piece, moves, col, row, -1, +1);
-		addLineMoves(context, piece, moves, col, row, +1, -1);
-		addLineMoves(context, piece, moves, col, row, +1, +1);
-	}
+		private int added;
 
-	private void addLineMoves(GameContext context, Piece piece, Collection<Move> moves, int col, int row, int deltaCol, int deltaRow) {
-		do {
-			col += deltaCol;
-			row += deltaRow;
-		} while (addMove(context, piece, moves, col, row));
-	}
-
-	private boolean addMove(GameContext context, Piece piece, Collection<Move> moves, int col, int row, boolean canCapture, boolean captureOnly) {
-		if (col < 0 || col > 7 || row < 0 || row > 7) {
-			return false;
+		public MoveSetBuilder(final Piece piece, final GameContext context) {
+			this.piece = piece;
+			this.context = context;
+			this.board = context.getBoard();
+			this.source = board.getPiecePosition(piece);
+			this.moves = new HashSet<Move>();
+			this.added = 0;
 		}
 
-		final Board board = context.getBoard();
-		final Square src = board.getPiecePosition(piece), dst = board.getSquare(col, row);
+		public MoveSetBuilder addMove(final int deltaColumn, final int deltaRow) {
+			final int column = source.getColumn(), row = source.getRow();
 
-		if (dst.isOccupied()) {
-			final Piece occupier = dst.getPiece();
-			if (canCapture && occupier.getColor() != piece.getColor()) {
-				moves.add(new CaptureMove(piece, src, dst, occupier));
+			added = 0;
+			addMove(column + deltaColumn, row + deltaRow, true, false);
+
+			return this;
+		}
+
+		public MoveSetBuilder addStraightMoves() {
+			added = 0;
+			addLineMoves(0, -1);
+			addLineMoves(+1, 0);
+			addLineMoves(0, +1);
+			addLineMoves(-1, 0);
+
+			return this;
+		}
+
+		public MoveSetBuilder addDiagonalMoves() {
+			added = 0;
+			addLineMoves(-1, -1);
+			addLineMoves(-1, +1);
+			addLineMoves(+1, -1);
+			addLineMoves(+1, +1);
+
+			return this;
+		}
+
+		public MoveSetBuilder addNormalMove(int deltaColumn, int deltaRow) {
+			final int column = source.getColumn(), row = source.getRow();
+
+			added = 0;
+			addMove(column + deltaColumn, row + deltaRow, false, false);
+
+			return this;
+		}
+
+		public MoveSetBuilder addCaptureMove(int deltaColumn, int deltaRow) {
+			final int column = source.getColumn(), row = source.getRow();
+
+			added = 0;
+			addMove(column + deltaColumn, row + deltaRow, true, true);
+
+			return this;
+		}
+
+		public boolean added() {
+			return 0 != added;
+		}
+
+		public Set<Move> build() {
+			return moves;
+		}
+
+		private void addLineMoves(final int deltaCol, final int deltaRow) {
+			int column = source.getColumn(), row = source.getRow();
+			do {
+				column += deltaCol;
+				row += deltaRow;
+			} while (addMove(column, row, true, false));
+		}
+
+		private boolean addMove(int column, int row, boolean canCapture, boolean captureOnly) {
+			if (column < 0 || column > 7 || row < 0 || row > 7) {
+				return false;
 			}
+
+			final Board board = context.getBoard();
+			final Square destination = board.getSquare(column, row);
+
+			if (destination.isOccupied()) {
+				final Piece occupier = destination.getPiece();
+				if (canCapture && occupier.getColor() != piece.getColor()) {
+					add(new CaptureMove(piece, source, destination, occupier));
+				}
+				return false;
+			} else if (!captureOnly) {
+				add(new NormalMove(piece, source, destination));
+				return true;
+			}
+
 			return false;
-		} else if (!captureOnly) {
-			moves.add(new NormalMove(piece, src, dst));
-			return true;
 		}
 
-		// TODO add checks for check and checkmate
+		private void add(final Move move) {
+			// TODO add check for check :-)
+			moves.add(move);
+			++added;
+		}
 
-		return false;
 	}
 
 }
