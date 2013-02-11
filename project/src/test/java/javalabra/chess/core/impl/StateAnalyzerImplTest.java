@@ -11,6 +11,7 @@ import javalabra.chess.domain.King;
 import javalabra.chess.domain.Pawn;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Queen;
+import javalabra.chess.domain.Rook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,8 @@ public class StateAnalyzerImplTest {
 	StateAnalyzer analyzer;
 	GameContext context;
 
-	Piece whiteKing, whitePawn;
-	Piece blackKing, blackQueen, blackPawn;
+	Piece whiteKing, whitePawn, whiteRook1;
+	Piece blackKing, blackQueen, blackPawn, blackRook1, blackRook2;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,10 +33,13 @@ public class StateAnalyzerImplTest {
 
 		whiteKing = new King(Color.WHITE);
 		whitePawn = new Pawn(Color.WHITE);
+		whiteRook1 = new Rook(Color.WHITE);
 
 		blackKing = new King(Color.BLACK);
 		blackQueen = new Queen(Color.BLACK);
 		blackPawn = new Pawn(Color.BLACK);
+		blackRook1 = new Rook(Color.BLACK);
+		blackRook2 = new Rook(Color.BLACK);
 
 		board.setSquare(4, 0, whiteKing);
 		board.setSquare(4, 7, blackKing);
@@ -101,5 +105,67 @@ public class StateAnalyzerImplTest {
 		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
 	}
 
+	@Test
+	public void detectsNoCheckmateIfAbsent() {
+		board.setSquare(2, 6, blackPawn);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsNoCheckmateIfCheckIsAvoidable() {
+		board.setSquare(4, 5, blackQueen);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsCheckmateByTwoRooks() {
+		board.setSquare(0, 0, blackRook1);
+		board.setSquare(2, 1, blackRook2);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(true));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsNoCheckmateIfRookCanBeCapturedByKing() {
+		board.setSquare(0, 0, blackRook1);
+		board.setSquare(3, 1, blackRook2);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsCheckmateByCoveredQueen() {
+		board.setSquare(4, 1, blackQueen);
+		board.setSquare(5, 2, blackPawn);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(true));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsNoCheckmateInCaseOfStalemate() {
+		board.setSquare(4, 1, blackPawn);
+		board.setSquare(0, 1, blackRook1);
+		board.setSquare(7, 1, blackRook2);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
+
+	@Test
+	public void detectsNoCheckmateByTwoRooksIfItCanBeBlocked() {
+		board.setSquare(0, 0, blackRook1);
+		board.setSquare(2, 1, blackRook2);
+		board.setSquare(3, 5, whiteRook1);
+
+		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
+		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+	}
 
 }

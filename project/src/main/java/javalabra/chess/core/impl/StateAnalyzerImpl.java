@@ -47,6 +47,24 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 
 	@Override
 	public boolean isCheckmate(final Color color, final GameContext context) {
+		return isCheck(color, context) && !hasValidMoves(color, context);
+	}
+
+	private boolean hasValidMoves(final Color color, final GameContext context) {
+		final Board board = context.getBoard();
+		final Collection<Piece> pieces = board.getPieces(color);
+
+		for (final Piece piece : pieces) {
+			final Collection<Move> moves = piece.getLegalMoves(director, context);
+			for (final Move move : moves) {
+				final GameContext attempt = context.copy();
+				move.perform(attempt.getBoard());
+				if (!isCheck(color, attempt)) {
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 
