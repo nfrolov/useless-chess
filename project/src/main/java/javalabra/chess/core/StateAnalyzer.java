@@ -35,4 +35,21 @@ public interface StateAnalyzer {
 	 */
 	boolean isCheckmate(Color color, GameContext context);
 
+	/**
+	 * Check if any king is in stalemate.
+	 *
+	 * @param	context	context representing game's current state
+	 * @return			true if stalemate
+	 */
+	boolean isStalemate(GameContext context);
+
+	/**
+	 * Check is king of specified color is in stalemate.
+	 *
+	 * @param	color	color of the king to check
+	 * @param	context	context representing game's current state
+	 * @return			true if in stalemate
+	 */
+	boolean isStalemate(Color color, GameContext context);
+
 }

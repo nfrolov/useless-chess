@@ -168,4 +168,55 @@ public class StateAnalyzerImplTest {
 		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
 	}
 
+	@Test
+	public void detectsNoStalemateIfAbsent() {
+		board.setSquare(0, 2, blackRook1);
+		board.setSquare(6, 5, blackQueen);
+		board.setSquare(6, 2, whitePawn);
+
+		assertStalemate(false, false);
+	}
+
+	@Test
+	public void detectsStalemateByTwoRooksAndQueen() {
+		board.setSquare(0, 1, blackRook1);
+		board.setSquare(3, 4, blackQueen);
+		board.setSquare(5, 6, blackRook2);
+
+		assertStalemate(true, false);
+	}
+
+	@Test
+	public void detectsNoStalemateByTwoRooksAndQueenIfAnyOtherPieceCanMove() {
+		board.setSquare(0, 1, blackRook1);
+		board.setSquare(3, 4, blackQueen);
+		board.setSquare(5, 6, blackRook2);
+		board.setSquare(7, 1, whitePawn);
+
+		assertStalemate(false, false);
+	}
+
+	@Test
+	public void detectsNoStalemateIfCheckmated() {
+		board.setSquare(0, 1, blackRook1);
+		board.setSquare(1, 1, blackRook2);
+
+		assertStalemate(false, false);
+	}
+
+	@Test
+	public void detectsNoStalemateIfCheckmatedEvenIfOtherPieceCouldMove() {
+		board.setSquare(0, 1, blackRook1);
+		board.setSquare(1, 1, blackRook2);
+		board.setSquare(7, 1, whitePawn);
+
+		assertStalemate(false, false);
+	}
+
+	private void assertStalemate(final boolean whites, final boolean blacks) {
+		assertThat("whites are in stalemate", analyzer.isStalemate(Color.WHITE, context), is(whites));
+		assertThat("blacks are in stalemate", analyzer.isStalemate(Color.BLACK, context), is(blacks));
+		assertThat("game is in stalemate", analyzer.isStalemate(context), is(whites || blacks));
+	}
+
 }

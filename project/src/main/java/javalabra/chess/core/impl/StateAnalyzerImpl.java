@@ -50,6 +50,16 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 		return isCheck(color, context) && !hasValidMoves(color, context);
 	}
 
+	@Override
+	public boolean isStalemate(final GameContext context) {
+		return isStalemate(Color.WHITE, context) || isStalemate(Color.BLACK, context);
+	}
+
+	@Override
+	public boolean isStalemate(final Color color, final GameContext context) {
+		return !isCheck(color, context) && !hasValidMoves(color, context);
+	}
+
 	private boolean hasValidMoves(final Color color, final GameContext context) {
 		final Board board = context.getBoard();
 		final Collection<Piece> pieces = board.getPieces(color);
