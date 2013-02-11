@@ -49,24 +49,21 @@ public class StateAnalyzerImplTest {
 	public void detectsNoCheckIfAbsent() {
 		board.setSquare(2, 6, blackPawn);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(false, false);
 	}
 
 	@Test
 	public void detectsCheckByStraightMove() {
 		board.setSquare(4, 3, blackQueen);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(true));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(true, false);
 	}
 
 	@Test
 	public void detectsCheckByDiagonalMove() {
 		board.setSquare(2, 2, blackQueen);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(true));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(true, false);
 	}
 
 	@Test
@@ -74,8 +71,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(2, 2, blackQueen);
 		board.setSquare(3, 1, whitePawn);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(false, false);
 	}
 
 	@Test
@@ -83,8 +79,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(1, 3, blackQueen);
 		board.setSquare(2, 2, blackPawn);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(false, false);
 	}
 
 	@Test
@@ -92,8 +87,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(4, 4, blackQueen);
 		board.setSquare(4, 1, whitePawn);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(false, false);
 	}
 
 	@Test
@@ -101,24 +95,21 @@ public class StateAnalyzerImplTest {
 		board.setSquare(4, 4, blackQueen);
 		board.setSquare(4, 2, blackPawn);
 
-		assertThat(analyzer.isCheck(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheck(Color.BLACK, context), is(false));
+		assertCheck(false, false);
 	}
 
 	@Test
 	public void detectsNoCheckmateIfAbsent() {
 		board.setSquare(2, 6, blackPawn);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(false, false);
 	}
 
 	@Test
 	public void detectsNoCheckmateIfCheckIsAvoidable() {
 		board.setSquare(4, 5, blackQueen);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(false, false);
 	}
 
 	@Test
@@ -126,8 +117,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(0, 0, blackRook1);
 		board.setSquare(2, 1, blackRook2);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(true));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(true, false);
 	}
 
 	@Test
@@ -135,8 +125,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(0, 0, blackRook1);
 		board.setSquare(3, 1, blackRook2);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(false, false);
 	}
 
 	@Test
@@ -144,8 +133,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(4, 1, blackQueen);
 		board.setSquare(5, 2, blackPawn);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(true));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(true, false);
 	}
 
 	@Test
@@ -154,8 +142,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(0, 1, blackRook1);
 		board.setSquare(7, 1, blackRook2);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(false, false);
 	}
 
 	@Test
@@ -164,8 +151,7 @@ public class StateAnalyzerImplTest {
 		board.setSquare(2, 1, blackRook2);
 		board.setSquare(3, 5, whiteRook1);
 
-		assertThat(analyzer.isCheckmate(Color.WHITE, context), is(false));
-		assertThat(analyzer.isCheckmate(Color.BLACK, context), is(false));
+		assertCheckmate(false, false);
 	}
 
 	@Test
@@ -211,6 +197,17 @@ public class StateAnalyzerImplTest {
 		board.setSquare(7, 1, whitePawn);
 
 		assertStalemate(false, false);
+	}
+
+	private void assertCheck(final boolean whites, final boolean blacks) {
+		assertThat("whites are in check", analyzer.isCheck(Color.WHITE, context), is(whites));
+		assertThat("blacks are in check", analyzer.isCheck(Color.BLACK, context), is(blacks));
+	}
+
+	private void assertCheckmate(final boolean whites, final boolean blacks) {
+		assertThat("whites are in checkmate", analyzer.isCheckmate(Color.WHITE, context), is(whites));
+		assertThat("blacks are in checkmate", analyzer.isCheckmate(Color.BLACK, context), is(blacks));
+		assertThat("game is in checkmate", analyzer.isCheckmate(context), is(whites || blacks));
 	}
 
 	private void assertStalemate(final boolean whites, final boolean blacks) {
