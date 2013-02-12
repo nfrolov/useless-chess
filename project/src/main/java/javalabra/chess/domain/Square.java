@@ -53,7 +53,7 @@ public class Square {
 	}
 
 	public boolean isWhite() {
-		return (row + column) % 2 == 1;
+		return (row + column) % 2 == 0;
 	}
 
 	@Override
