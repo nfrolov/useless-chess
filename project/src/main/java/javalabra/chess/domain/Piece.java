@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
+import javalabra.chess.core.PiecePainter;
 
 /**
  * Represents abstract piece.
@@ -38,5 +39,12 @@ public abstract class Piece {
 	 * @return 				collection of valid moves
 	 */
 	public abstract Set<Move> getLegalMoves(MoveDirector director, GameContext context);
+
+	/**
+	 * Delegates piece painting to specified painter object.
+	 *
+	 * @param	painter		painter object responsible for painting
+	 */
+	public abstract void paint(PiecePainter painter);
 
 }
