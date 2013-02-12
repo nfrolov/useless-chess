@@ -52,6 +52,10 @@ public class Square {
 		return null != piece;
 	}
 
+	public boolean isWhite() {
+		return (row + column) % 2 == 1;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%c%c", getFile(), getRank());

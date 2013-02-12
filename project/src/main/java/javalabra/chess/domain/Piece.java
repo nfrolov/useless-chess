@@ -32,6 +32,15 @@ public abstract class Piece {
 	}
 
 	/**
+	 * Returns true if color of the piece is white.
+	 *
+	 * @return				true if white
+	 */
+	public boolean isWhite() {
+		return Color.WHITE == color;
+	}
+
+	/**
 	 * Returns all valid moves for the piece.
 	 *
 	 * @param 	director	director which is responsible for moves calculation
