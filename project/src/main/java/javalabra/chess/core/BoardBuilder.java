@@ -12,7 +12,7 @@ import javalabra.chess.domain.PlayerWhite;
 public interface BoardBuilder {
 
 	/**
-	 * Places pieces on the board.
+	 * Places pieces on the board and returns it.
 	 *
 	 * @param	white	white player
 	 * @param	black	black player

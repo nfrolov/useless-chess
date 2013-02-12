@@ -13,6 +13,11 @@ import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.PlayerBlack;
 import javalabra.chess.domain.PlayerWhite;
 
+/**
+ * Implementation of game facade.
+ *
+ * @author Nikita Frolov
+ */
 public class GameImpl implements Game {
 
 	private final PlayerWhite white;

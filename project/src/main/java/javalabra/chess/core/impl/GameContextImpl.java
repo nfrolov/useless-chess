@@ -3,6 +3,11 @@ package javalabra.chess.core.impl;
 import javalabra.chess.core.GameContext;
 import javalabra.chess.domain.Board;
 
+/**
+ * Implementation of game context.
+ *
+ * @author Nikita
+ */
 public class GameContextImpl implements GameContext {
 
 	private final Board board;

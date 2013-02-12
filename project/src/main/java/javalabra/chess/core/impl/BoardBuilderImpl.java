@@ -16,17 +16,12 @@ import javalabra.chess.domain.Queen;
 import javalabra.chess.domain.Rook;
 
 /**
- * Standard implementation of chessboard builder.
+ * Implementation of board builder. Builds standard chess layout.
  *
  * @author Nikita Frolov
  */
 public class BoardBuilderImpl implements BoardBuilder {
 
-	/**
-	 * Builds standard chess layout.
-	 *
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Board build(PlayerWhite white, PlayerBlack black) {
 		final Board board = new Board();
