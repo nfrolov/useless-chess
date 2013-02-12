@@ -4,3 +4,6 @@
 29.01.2013	5	move logic
 04.02.2013	2	design; move logic
 05.02.2013	4	move logic; check detection logic; javadoc
+10.02.2013	2	design; refactoring
+11.02.2013	2	checkmated and stalemate logic; refactoring
+12.02.2013	4	gui; jar; minor logic; refactoring
