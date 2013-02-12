@@ -61,13 +61,8 @@ public class BoardBuilderImplTest {
 		assertSquare(board.getSquare(1, row), Knight.class, color);
 		assertSquare(board.getSquare(2, row), Bishop.class, color);
 
-		if (Color.WHITE == color) {
-			assertSquare(board.getSquare(3, row), Queen.class, color);
-			assertSquare(board.getSquare(4, row), King.class, color);
-		} else {
-			assertSquare(board.getSquare(3, row), King.class, color);
-			assertSquare(board.getSquare(4, row), Queen.class, color);
-		}
+		assertSquare(board.getSquare(3, row), Queen.class, color);
+		assertSquare(board.getSquare(4, row), King.class, color);
 
 		assertSquare(board.getSquare(5, row), Bishop.class, color);
 		assertSquare(board.getSquare(6, row), Knight.class, color);

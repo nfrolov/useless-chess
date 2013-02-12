@@ -55,13 +55,8 @@ public class BoardBuilderImpl implements BoardBuilder {
 		addPiece(pieces, new Knight(color), board, 1, row);
 		addPiece(pieces, new Bishop(color), board, 2, row);
 
-		if (Color.WHITE == color) {
-			addPiece(pieces, new Queen(color), board, 3, row);
-			addPiece(pieces, new King(color), board, 4, row);
-		} else {
-			addPiece(pieces, new King(color), board, 3, row);
-			addPiece(pieces, new Queen(color), board, 4, row);
-		}
+		addPiece(pieces, new Queen(color), board, 3, row);
+		addPiece(pieces, new King(color), board, 4, row);
 
 		addPiece(pieces, new Bishop(color), board, 5, row);
 		addPiece(pieces, new Knight(color), board, 6, row);
