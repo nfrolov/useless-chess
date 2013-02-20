@@ -4,24 +4,35 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javalabra.chess.domain.Piece;
-import javalabra.chess.domain.Square;
 
 import javax.swing.JPanel;
 
 class SquarePanel extends JPanel {
 
-	private final Square square;
+	private static final Color COLOR_WHITE = new Color(0xAD6D2F), COLOR_BLACK = new Color(0xFFCE9E);
 
-	public SquarePanel(final Square square) {
+	private final int column, row;
+	private Piece piece;
+
+	public SquarePanel(final int column, final int row, final boolean white) {
 		super();
 
-		this.square = square;
+		this.column = column;
+		this.row = row;
 
-		if (square.isWhite()) {
-			setBackground(new Color(0xAD6D2F));
-		} else {
-			setBackground(new Color(0xFFCE9E));
-		}
+		setBackground(white ? COLOR_WHITE : COLOR_BLACK);
+	}
+
+	public void setPiece(final Piece piece) {
+		this.piece = piece;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public int getRow() {
+		return row;
 	}
 
 	@Override
@@ -32,7 +43,6 @@ class SquarePanel extends JPanel {
 	}
 
 	protected void paintPiece(final Graphics g) {
-		final Piece piece = square.getPiece();
 		if (null != piece) {
 			piece.paint(new SquarePiecePainter(this, g.create()));
 		}

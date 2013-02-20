@@ -1,24 +1,22 @@
 package javalabra.chess.core.impl;
 
-import java.util.Collection;
-
 import javalabra.chess.core.BoardBuilder;
 import javalabra.chess.core.Game;
 import javalabra.chess.core.GameContext;
+import javalabra.chess.core.GameListener;
 import javalabra.chess.core.MoveDirector;
 import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.domain.Board;
-import javalabra.chess.domain.Move;
-import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.PlayerBlack;
 import javalabra.chess.domain.PlayerWhite;
+import javalabra.chess.ui.BoardListener;
 
 /**
  * Implementation of game facade.
  *
  * @author Nikita Frolov
  */
-public class GameImpl implements Game {
+public class GameImpl implements Game, BoardListener {
 
 	private final PlayerWhite white;
 	private final PlayerBlack black;
@@ -27,6 +25,8 @@ public class GameImpl implements Game {
 
 	private final MoveDirector director;
 	private final StateAnalyzer analyzer;
+
+	private GameListener listener;
 
 	public GameImpl() {
 		white = new PlayerWhite();
@@ -38,18 +38,14 @@ public class GameImpl implements Game {
 	}
 
 	@Override
-	public Board getBoard() {
-		return board;
+	public void begin(final GameListener listener) {
+		this.listener = listener;
+		this.listener.setBoardListener(this);
+		this.listener.update(board);
 	}
 
 	@Override
-	public Collection<Move> getLegalMoves(final Piece piece) {
-		return piece.getLegalMoves(director, context);
-	}
-
-	@Override
-	public void performMove(final Move move) {
-		move.perform(board);
+	public void onSquareSelected(int column, int row) {
 	}
 
 	protected BoardBuilder getBoardBuilder() {

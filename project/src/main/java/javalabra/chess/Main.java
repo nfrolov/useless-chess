@@ -12,7 +12,9 @@ public class Main {
 			@Override
 			public void run() {
 				try {
-					new Chess(new GameImpl()).display();
+					Chess chess = new Chess();
+					new GameImpl().begin(chess);
+					chess.display();
 				} catch (Exception e) {
 					// FIXME display error dialog
 					throw new RuntimeException(e);
