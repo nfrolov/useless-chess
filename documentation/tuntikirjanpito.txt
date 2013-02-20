@@ -7,3 +7,5 @@
 10.02.2013	2	design; refactoring
 11.02.2013	2	checkmated and stalemate logic; refactoring
 12.02.2013	4	gui; jar; minor logic; refactoring
+18.02.2013	2	design
+20.02.2013	5	refactoring; basic game logic; working gui
