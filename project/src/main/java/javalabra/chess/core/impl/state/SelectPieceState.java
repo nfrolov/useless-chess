@@ -3,8 +3,8 @@ package javalabra.chess.core.impl.state;
 import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
-import javalabra.chess.core.GameListener;
 import javalabra.chess.core.MoveDirector;
+import javalabra.chess.core.impl.GameEventEmitter;
 import javalabra.chess.core.impl.GameState;
 import javalabra.chess.domain.Color;
 import javalabra.chess.domain.Move;
@@ -20,7 +20,7 @@ public class SelectPieceState extends AbstractGameState {
 	}
 
 	@Override
-	protected GameState handle(final Square square, final MoveDirector director, final GameContext context, final GameListener listener) {
+	protected GameState handle(final Square square, final MoveDirector director, final GameContext context, final GameEventEmitter em) {
 		final Piece piece = square.getPiece();
 
 		if (null == piece || color != piece.getColor()) {
@@ -32,6 +32,8 @@ public class SelectPieceState extends AbstractGameState {
 		if (moves.isEmpty()) {
 			return this;
 		}
+
+		em.trigger(piece.getColor(), square, moves);
 
 		return new SelectMoveState(piece, moves);
 	}

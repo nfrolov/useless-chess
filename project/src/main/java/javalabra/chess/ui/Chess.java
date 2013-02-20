@@ -3,8 +3,8 @@ package javalabra.chess.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
+import javalabra.chess.core.GameEvent;
 import javalabra.chess.core.GameListener;
-import javalabra.chess.domain.Board;
 
 import javax.swing.JFrame;
 
@@ -23,8 +23,8 @@ public class Chess implements GameListener {
 	}
 
 	@Override
-	public void update(final Board board) {
-		panel.update(board);
+	public void gameChanged(final GameEvent e) {
+		panel.gameChanged(e);
 	}
 
 	public void display() {

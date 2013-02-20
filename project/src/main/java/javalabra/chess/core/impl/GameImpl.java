@@ -28,7 +28,7 @@ public class GameImpl implements Game, BoardListener {
 	private final MoveDirector director;
 	private final StateAnalyzer analyzer;
 
-	private GameListener listener;
+	private GameEventEmitter em;
 
 	private GameState state;
 
@@ -39,19 +39,20 @@ public class GameImpl implements Game, BoardListener {
 		context = new GameContextImpl(board);
 		director = new MoveDirectorImpl();
 		analyzer = new StateAnalyzerImpl(director);
-		state = new SelectPieceState(Color.WHITE);
+		em = new GameEventEmitter(board);
 	}
 
 	@Override
 	public void begin(final GameListener listener) {
-		this.listener = listener;
-		this.listener.setBoardListener(this);
-		this.listener.update(board);
+		em.setGameListener(listener);
+		listener.setBoardListener(this);
+		state = new SelectPieceState(Color.WHITE);
+		em.trigger(Color.WHITE);
 	}
 
 	@Override
 	public void onSquareSelected(int column, int row) {
-		state = state.handle(column, row, director, context, listener);
+		state = state.handle(column, row, director, context, em);
 	}
 
 	protected BoardBuilder getBoardBuilder() {

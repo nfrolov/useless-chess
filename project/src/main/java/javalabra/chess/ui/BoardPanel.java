@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javalabra.chess.core.GameEvent;
 import javalabra.chess.core.GameListener;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Piece;
@@ -43,13 +44,16 @@ public class BoardPanel extends JPanel implements GameListener {
 	}
 
 	@Override
-	public void update(final Board board) {
+	public void gameChanged(final GameEvent e) {
+		final Board board = e.getBoard();
+
 		for (int column = 0; column < 8; ++column) {
 			for (int row = 0; row < 8; ++row) {
 				final Piece piece = board.getSquare(column, row).getPiece();
 				squares[column][row].setPiece(piece);
 			}
 		}
+
 		repaint();
 	}
 
