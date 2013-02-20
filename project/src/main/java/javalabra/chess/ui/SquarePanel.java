@@ -36,7 +36,7 @@ class SquarePanel extends JPanel {
 	}
 
 	@Override
-	public void paint(final Graphics g) {
+	public void paintComponent(final Graphics g) {
 		g.setColor(getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());
 		paintPiece(g);
