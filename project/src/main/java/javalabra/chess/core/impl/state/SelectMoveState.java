@@ -27,6 +27,7 @@ public class SelectMoveState extends AbstractGameState {
 		final Move move = findMove(square);
 
 		if (null == move) {
+			em.trigger(currentColor);
 			return new SelectPieceState(currentColor);
 		}
 
