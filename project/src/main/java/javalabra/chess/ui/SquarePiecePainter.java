@@ -6,6 +6,9 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+import java.util.Map;
 
 import javalabra.chess.core.PiecePainter;
 import javalabra.chess.domain.Bishop;
@@ -65,17 +68,37 @@ class SquarePiecePainter implements PiecePainter {
 		graphics.drawImage(image, 0, 0, panel.getWidth(), panel.getHeight(), null);
 	}
 
-	protected BufferedImage loadImage(final String name, final boolean white)  {
+	private static final Map<String, SoftReference<BufferedImage>> PIECE_IMAGE_CACHE = new HashMap<String, SoftReference<BufferedImage>>(12);
+
+	private static BufferedImage loadImage(final String name, final boolean white) {
 		final String prefix = "res/piece/", suffix = ".png", fullname;
 
 		fullname = prefix + ((white ? "white." : "black.") + name) + suffix;
 
-		try {
-			final InputStream is = getClass().getResourceAsStream(fullname);
-			return ImageIO.read(is);
-		} catch (IOException e) {
-			throw new RuntimeException("failed to load image: " + name, e);
+		final SoftReference<BufferedImage> imageRef = PIECE_IMAGE_CACHE.get(fullname);
+		BufferedImage image = null;
+
+		if (null != imageRef) {
+			image = imageRef.get();
 		}
+
+		if (null == image) {
+			final InputStream is = SquarePiecePainter.class.getResourceAsStream(fullname);
+
+			if (null == is) {
+				throw new RuntimeException("image '" + fullname + "' cannot be found");
+			}
+
+			try {
+				image = ImageIO.read(is);
+			} catch (IOException e) {
+				throw new RuntimeException("failed to load image '" + name + "'", e);
+			}
+
+			PIECE_IMAGE_CACHE.put(fullname, new SoftReference<BufferedImage>(image));
+		}
+
+		return image;
 	}
 
 }
