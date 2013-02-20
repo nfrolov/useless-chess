@@ -29,10 +29,6 @@ public class SelectPieceState extends AbstractGameState {
 
 		final Collection<Move> moves = piece.getLegalMoves(director, context);
 
-		if (moves.isEmpty()) {
-			return this;
-		}
-
 		em.trigger(piece.getColor(), square, moves);
 
 		return new SelectMoveState(piece, moves);
