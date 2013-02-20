@@ -6,7 +6,9 @@ import javalabra.chess.core.GameContext;
 import javalabra.chess.core.GameListener;
 import javalabra.chess.core.MoveDirector;
 import javalabra.chess.core.StateAnalyzer;
+import javalabra.chess.core.impl.state.SelectPieceState;
 import javalabra.chess.domain.Board;
+import javalabra.chess.domain.Color;
 import javalabra.chess.domain.PlayerBlack;
 import javalabra.chess.domain.PlayerWhite;
 import javalabra.chess.ui.BoardListener;
@@ -28,6 +30,8 @@ public class GameImpl implements Game, BoardListener {
 
 	private GameListener listener;
 
+	private GameState state;
+
 	public GameImpl() {
 		white = new PlayerWhite();
 		black = new PlayerBlack();
@@ -35,6 +39,7 @@ public class GameImpl implements Game, BoardListener {
 		context = new GameContextImpl(board);
 		director = new MoveDirectorImpl();
 		analyzer = new StateAnalyzerImpl(director);
+		state = new SelectPieceState(Color.WHITE);
 	}
 
 	@Override
@@ -46,6 +51,7 @@ public class GameImpl implements Game, BoardListener {
 
 	@Override
 	public void onSquareSelected(int column, int row) {
+		state = state.handle(column, row, director, context, listener);
 	}
 
 	protected BoardBuilder getBoardBuilder() {
