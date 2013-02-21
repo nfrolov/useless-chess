@@ -31,7 +31,7 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 		final Collection<Piece> pieces = board.getPieces(color.opposite());
 
 		for (final Piece piece : pieces) {
-			final Collection<Move> moves = piece.getLegalMoves(director, context);
+			final Collection<Move> moves = piece.getCandidateMoves(director, context);
 			if (contains(moves, king)) {
 				return true;
 			}
