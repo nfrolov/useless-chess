@@ -15,4 +15,8 @@ public interface GameEvent {
 
 	boolean isWhiteTurn();
 
+	boolean isCheck();
+
+	boolean isCheckmate();
+
 }

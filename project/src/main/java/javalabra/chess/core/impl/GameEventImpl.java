@@ -12,12 +12,16 @@ public class GameEventImpl implements GameEvent {
 	private final Square currentPiece;
 	private final Collection<Square> legalMoves;
 	private final boolean whiteTurn;
+	private final boolean check, checkmate;
 
-	public GameEventImpl(final Board board, final boolean whiteTurn, final Square current, final Collection<Square> moves) {
+	public GameEventImpl(final Board board, final boolean whiteTurn, final Square current, final Collection<Square> moves, final boolean check,
+			final boolean checkmate) {
 		this.board = board;
 		this.whiteTurn = whiteTurn;
 		this.currentPiece = current;
 		this.legalMoves = moves;
+		this.check = check;
+		this.checkmate = checkmate;
 	}
 
 	@Override
@@ -38,6 +42,16 @@ public class GameEventImpl implements GameEvent {
 	@Override
 	public boolean isWhiteTurn() {
 		return whiteTurn;
+	}
+
+	@Override
+	public boolean isCheck() {
+		return check;
+	}
+
+	@Override
+	public boolean isCheckmate() {
+		return checkmate;
 	}
 
 }

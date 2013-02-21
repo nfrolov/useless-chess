@@ -45,7 +45,7 @@ public class GameImpl implements Game, BoardListener {
 		analyzer.setMoveDirector(director);
 		director.setStateAnalyzer(analyzer);
 
-		em = new GameEventEmitter(board);
+		em = new GameEventEmitter(context, analyzer);
 	}
 
 	@Override
