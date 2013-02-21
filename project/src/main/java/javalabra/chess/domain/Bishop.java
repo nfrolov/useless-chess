@@ -23,6 +23,11 @@ public class Bishop extends Piece {
 	}
 
 	@Override
+	public Collection<Move> getCandidateMoves(final MoveDirector director, final GameContext context) {
+		return director.getCandidateMoves(this, context);
+	}
+
+	@Override
 	public void paint(final PiecePainter painter) {
 		painter.paint(this);
 	}

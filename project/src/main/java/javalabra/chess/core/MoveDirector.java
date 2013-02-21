@@ -18,7 +18,7 @@ import javalabra.chess.domain.Rook;
 public interface MoveDirector {
 
 	/**
-	 * Calculates moves for king.
+	 * Calculates legals moves for king.
 	 *
 	 * @param	piece
 	 * @param	context
@@ -27,7 +27,16 @@ public interface MoveDirector {
 	Collection<Move> getLegalMoves(King piece, GameContext context);
 
 	/**
-	 * Calculates moves for queen.
+	 * Calculates candidate moves for king without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(King piece, GameContext context);
+
+	/**
+	 * Calculates legal moves for queen.
 	 *
 	 * @param	piece
 	 * @param	context
@@ -36,13 +45,31 @@ public interface MoveDirector {
 	Collection<Move> getLegalMoves(Queen piece, GameContext context);
 
 	/**
-	 * Calculates moves for rook.
+	 * Calculates candidate moves for queen without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(Queen piece, GameContext context);
+
+	/**
+	 * Calculates legal moves for rook.
 	 *
 	 * @param	piece
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
 	Collection<Move> getLegalMoves(Rook piece, GameContext context);
+
+	/**
+	 * Calculates candidate moves for rook without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(Rook piece, GameContext context);
 
 	/**
 	 * Calculates moves for knight.
@@ -54,7 +81,16 @@ public interface MoveDirector {
 	Collection<Move> getLegalMoves(Knight piece, GameContext context);
 
 	/**
-	 * Calculates moves for bishop.
+	 * Calculates candidate moves for knight without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(Knight piece, GameContext context);
+
+	/**
+	 * Calculates legal moves for bishop.
 	 *
 	 * @param	piece
 	 * @param	context
@@ -63,12 +99,30 @@ public interface MoveDirector {
 	Collection<Move> getLegalMoves(Bishop piece, GameContext context);
 
 	/**
-	 * Calculates moves for pawn.
+	 * Calculates candidate moves for bishop without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(Bishop piece, GameContext context);
+
+	/**
+	 * Calculates legal moves for pawn.
 	 *
 	 * @param	piece
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
 	Collection<Move> getLegalMoves(Pawn piece, GameContext context);
+
+	/**
+	 * Calculates candidate moves for pawn without analyzing them.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return			collection of valid moves
+	 */
+	Collection<Move> getCandidateMoves(Pawn piece, GameContext context);
 
 }

@@ -22,6 +22,10 @@ public class Pawn extends Piece {
 		return director.getLegalMoves(this, context);
 	}
 
+	@Override
+	public Collection<Move> getCandidateMoves(final MoveDirector director, final GameContext context) {
+		return director.getCandidateMoves(this, context);
+	}
 
 	@Override
 	public void paint(final PiecePainter painter) {

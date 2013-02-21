@@ -41,13 +41,22 @@ public abstract class Piece {
 	}
 
 	/**
-	 * Returns all valid moves for the piece.
+	 * Returns all legal moves for the piece.
 	 *
 	 * @param 	director	director which is responsible for moves calculation
 	 * @param	context		context representing game's current state
-	 * @return 				collection of valid moves
+	 * @return 				collection of legal moves
 	 */
 	public abstract Collection<Move> getLegalMoves(MoveDirector director, GameContext context);
+
+	/**
+	 * Returns all candidate moves for piece. Such moves are not analyzed and must not be performed.
+	 *
+	 * @param	director	director which is responsible for moves calculation
+	 * @param 	context		context representing game's current state
+	 * @return				collection of candidate moves
+	 */
+	public abstract Collection<Move> getCandidateMoves(MoveDirector director, GameContext context);
 
 	/**
 	 * Delegates piece painting to specified painter object.

@@ -27,6 +27,66 @@ public class MoveDirectorImpl implements MoveDirector {
 
 	@Override
 	public Collection<Move> getLegalMoves(final King piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final King piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	@Override
+	public Collection<Move> getLegalMoves(final Queen piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final Queen piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	@Override
+	public Collection<Move> getLegalMoves(final Rook piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final Rook piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	@Override
+	public Collection<Move> getLegalMoves(final Knight piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final Knight piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	@Override
+	public Collection<Move> getLegalMoves(final Bishop piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final Bishop piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	@Override
+	public Collection<Move> getLegalMoves(final Pawn piece, final GameContext context) {
+		return build(piece, context).getLegalMoves();
+	}
+
+	@Override
+	public Collection<Move> getCandidateMoves(final Pawn piece, final GameContext context) {
+		return build(piece, context).getCandidateMoves();
+	}
+
+	private MoveCollectionBuilder build(final King piece, final GameContext context) {
+		// TODO castling
 		return newBuilder(piece, context)
 				.addMove(-1, +1)
 				.addMove(0, +1)
@@ -35,27 +95,21 @@ public class MoveDirectorImpl implements MoveDirector {
 				.addMove(+1, 0)
 				.addMove(-1, -1)
 				.addMove(0, -1)
-				.addMove(+1, -1)
-				.build();
+				.addMove(+1, -1);
 	}
 
-	@Override
-	public Collection<Move> getLegalMoves(final Queen piece, final GameContext context) {
+	private MoveCollectionBuilder build(final Queen piece, final GameContext context) {
 		return newBuilder(piece, context)
 				.addStraightMoves()
-				.addDiagonalMoves()
-				.build();
+				.addDiagonalMoves();
 	}
 
-	@Override
-	public Collection<Move> getLegalMoves(final Rook piece, final GameContext context) {
+	private MoveCollectionBuilder build(final Rook piece, final GameContext context) {
 		return newBuilder(piece, context)
-				.addStraightMoves()
-				.build();
+				.addStraightMoves();
 	}
 
-	@Override
-	public Collection<Move> getLegalMoves(final Knight piece, final GameContext context) {
+	private MoveCollectionBuilder build(final Knight piece, final GameContext context) {
 		return newBuilder(piece, context)
 				.addMove(-2, -1)
 				.addMove(-1, -2)
@@ -64,19 +118,15 @@ public class MoveDirectorImpl implements MoveDirector {
 				.addMove(+2, +1)
 				.addMove(+1, +2)
 				.addMove(-1, +2)
-				.addMove(-2, +1)
-				.build();
+				.addMove(-2, +1);
 	}
 
-	@Override
-	public Collection<Move> getLegalMoves(final Bishop piece, final GameContext context) {
+	private MoveCollectionBuilder build(final Bishop piece, final GameContext context) {
 		return newBuilder(piece, context)
-				.addDiagonalMoves()
-				.build();
+				.addDiagonalMoves();
 	}
 
-	@Override
-	public Collection<Move> getLegalMoves(final Pawn piece, final GameContext context) {
+	private MoveCollectionBuilder build(final Pawn piece, final GameContext context) {
 		final MoveCollectionBuilder builder = newBuilder(piece, context);
 		final Square pos = context.getBoard().getPiecePosition(piece);
 		final int row = pos.getRow();
@@ -101,7 +151,7 @@ public class MoveDirectorImpl implements MoveDirector {
 
 		// TODO en passant
 
-		return builder.build();
+		return builder;
 	}
 
 	private MoveCollectionBuilder newBuilder(final Piece piece, final GameContext context) {

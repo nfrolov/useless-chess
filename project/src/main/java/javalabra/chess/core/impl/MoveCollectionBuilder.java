@@ -83,7 +83,12 @@ public class MoveCollectionBuilder {
 		return 0 != added;
 	}
 
-	public Collection<Move> build() {
+	public Collection<Move> getCandidateMoves() {
+		return moves;
+	}
+
+	public Collection<Move> getLegalMoves() {
+		// FIXME analyze moves
 		return moves;
 	}
 
@@ -118,7 +123,6 @@ public class MoveCollectionBuilder {
 	}
 
 	private void add(final Move move) {
-		// TODO add check for check :-)
 		moves.add(move);
 		++added;
 	}
