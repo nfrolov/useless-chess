@@ -1,6 +1,7 @@
 package javalabra.chess.core;
 
 import javalabra.chess.domain.Board;
+import javalabra.chess.domain.Move;
 
 /**
  * Context object which represents concrete moment in the game.
@@ -17,10 +18,11 @@ public interface GameContext {
 	Board getBoard();
 
 	/**
-	 * Returns independent copy of the context.
+	 * Performs move and returns a new game context to represent new state.
 	 *
-	 * @return			context's copy
+	 * @param	move	move to perform
+	 * @return			new context object
 	 */
-	GameContext copy();
+	GameContext attempt(Move move);
 
 }

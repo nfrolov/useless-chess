@@ -2,6 +2,7 @@ package javalabra.chess.core.impl;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.domain.Board;
+import javalabra.chess.domain.Move;
 
 /**
  * Implementation of game context.
@@ -26,8 +27,12 @@ public class GameContextImpl implements GameContext {
 	}
 
 	@Override
-	public GameContext copy() {
-		return new GameContextImpl(this);
+	public GameContext attempt(final Move move) {
+		final Board copy = board.copy();
+
+		move.perform(copy);
+
+		return new GameContextImpl(copy);
 	}
 
 }

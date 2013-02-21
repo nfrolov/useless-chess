@@ -67,8 +67,7 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 		for (final Piece piece : pieces) {
 			final Collection<Move> moves = piece.getLegalMoves(director, context);
 			for (final Move move : moves) {
-				final GameContext attempt = context.copy();
-				move.perform(attempt.getBoard());
+				final GameContext attempt = context.attempt(move);
 				if (!isCheck(color, attempt)) {
 					return true;
 				}
