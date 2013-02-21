@@ -17,6 +17,14 @@ public interface StateAnalyzer {
 	void setMoveDirector(MoveDirector director);
 
 	/**
+	 * Checks if the any king is in check.
+	 *
+	 * @param	context	context representing game's current state
+	 * @return			true if in check
+	 */
+	boolean isCheck(GameContext context);
+
+	/**
 	 * Checks if the king of specified color is in check.
 	 *
 	 * @param	color	color of the king to check

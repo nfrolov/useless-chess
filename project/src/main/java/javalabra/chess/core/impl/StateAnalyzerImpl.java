@@ -30,6 +30,11 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 	}
 
 	@Override
+	public boolean isCheck(final GameContext context) {
+		return isCheck(Color.WHITE, context) || isCheck(Color.BLACK, context);
+	}
+
+	@Override
 	public boolean isCheck(final Color color, final GameContext context) {
 		final Board board = context.getBoard();
 		final Square king = board.getKingPosition(color);
