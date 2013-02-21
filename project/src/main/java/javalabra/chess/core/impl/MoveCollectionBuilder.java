@@ -2,9 +2,11 @@ package javalabra.chess.core.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javalabra.chess.core.GameContext;
+import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.core.move.CaptureMove;
 import javalabra.chess.core.move.NormalMove;
 import javalabra.chess.domain.Board;
@@ -18,14 +20,17 @@ public class MoveCollectionBuilder {
 	private final GameContext context;
 	private final Board board;
 	private final Square source;
+	private final StateAnalyzer analyzer;
 
 	private final Set<Move> moves;
 
 	private int added;
 
-	public MoveCollectionBuilder(final Piece piece, final GameContext context) {
+	public MoveCollectionBuilder(final Piece piece, final GameContext context, final StateAnalyzer analyzer) {
 		this.piece = piece;
 		this.context = context;
+		this.analyzer = analyzer;
+
 		this.board = context.getBoard();
 		this.source = board.getPiecePosition(piece);
 		this.moves = new HashSet<Move>();
@@ -88,8 +93,18 @@ public class MoveCollectionBuilder {
 	}
 
 	public Collection<Move> getLegalMoves() {
-		// FIXME analyze moves
-		return moves;
+		final Collection<Move> legal = new HashSet<Move>(moves);
+		final Iterator<Move> it = legal.iterator();
+
+		while (it.hasNext()) {
+			final Move move = it.next();
+			final GameContext attempt = context.attempt(move);
+			if (analyzer.isCheck(piece.getColor(), attempt)) {
+				it.remove();
+			}
+		}
+
+		return legal;
 	}
 
 	private void addLineMoves(final int deltaCol, final int deltaRow) {

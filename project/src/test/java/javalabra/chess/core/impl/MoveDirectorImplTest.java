@@ -407,4 +407,38 @@ public class MoveDirectorImplTest {
 				));
 	}
 
+	@Test
+	public void pawnCannotMoveIfItPlacesKingInCheck() {
+		piece = new Pawn(Color.WHITE);
+		board.setSquare(5, 1, piece);
+		board.setSquare(7, 3, new Bishop(Color.BLACK));
+
+		moves = piece.getLegalMoves(director, context);
+
+		assertThat(moves, is(empty()));
+	}
+
+	public void pawnCanOnlyBlockAttackingPiece() {
+		piece = new Pawn(Color.WHITE);
+		board.setSquare(6, 1, piece);
+		board.setSquare(7, 3, new Bishop(Color.BLACK));
+
+		moves = piece.getLegalMoves(director, context);
+
+		assertThat(moves, hasSize(1));
+		assertThat(moves, hasItem(moveTo(6, 2)));
+	}
+
+	@Test
+	public void pawnCanOnlyCaptureAttackingPiece() {
+		piece = new Pawn(Color.WHITE);
+		board.setSquare(7, 1, piece);
+		board.setSquare(6, 2, new Bishop(Color.BLACK));
+
+		moves = piece.getLegalMoves(director, context);
+
+		assertThat(moves, hasSize(1));
+		assertThat(moves, hasItem(moveTo(6, 2)));
+	}
+
 }

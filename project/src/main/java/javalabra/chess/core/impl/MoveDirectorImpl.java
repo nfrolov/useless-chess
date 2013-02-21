@@ -164,7 +164,7 @@ public class MoveDirectorImpl implements MoveDirector {
 	}
 
 	private MoveCollectionBuilder newBuilder(final Piece piece, final GameContext context) {
-		return new MoveCollectionBuilder(piece, context);
+		return new MoveCollectionBuilder(piece, context, analyzer);
 	}
 
 }
