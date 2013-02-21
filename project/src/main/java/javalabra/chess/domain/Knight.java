@@ -1,6 +1,6 @@
 package javalabra.chess.domain;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
@@ -18,7 +18,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public Set<Move> getLegalMoves(MoveDirector director, GameContext context) {
+	public Collection<Move> getLegalMoves(MoveDirector director, GameContext context) {
 		return director.getLegalMoves(this, context);
 	}
 

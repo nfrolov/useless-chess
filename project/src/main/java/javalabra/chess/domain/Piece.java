@@ -1,6 +1,6 @@
 package javalabra.chess.domain;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
@@ -47,7 +47,7 @@ public abstract class Piece {
 	 * @param	context		context representing game's current state
 	 * @return 				collection of valid moves
 	 */
-	public abstract Set<Move> getLegalMoves(MoveDirector director, GameContext context);
+	public abstract Collection<Move> getLegalMoves(MoveDirector director, GameContext context);
 
 	/**
 	 * Delegates piece painting to specified painter object.

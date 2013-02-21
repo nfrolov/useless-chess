@@ -3,7 +3,7 @@ package javalabra.chess.core.impl;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.domain.Bishop;
@@ -62,7 +62,7 @@ public class MoveDirectorImplTest {
 	MoveDirectorImpl director;
 	GameContext context;
 
-	Set<Move> moves;
+	Collection<Move> moves;
 	Piece piece;
 
 	@Before

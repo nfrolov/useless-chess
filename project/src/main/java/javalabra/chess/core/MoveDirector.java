@@ -1,6 +1,6 @@
 package javalabra.chess.core;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.King;
@@ -24,7 +24,7 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(King piece, GameContext context);
+	Collection<Move> getLegalMoves(King piece, GameContext context);
 
 	/**
 	 * Calculates moves for queen.
@@ -33,7 +33,7 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Queen piece, GameContext context);
+	Collection<Move> getLegalMoves(Queen piece, GameContext context);
 
 	/**
 	 * Calculates moves for rook.
@@ -42,7 +42,7 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Rook piece, GameContext context);
+	Collection<Move> getLegalMoves(Rook piece, GameContext context);
 
 	/**
 	 * Calculates moves for knight.
@@ -51,7 +51,7 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Knight piece, GameContext context);
+	Collection<Move> getLegalMoves(Knight piece, GameContext context);
 
 	/**
 	 * Calculates moves for bishop.
@@ -60,7 +60,7 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Bishop piece, GameContext context);
+	Collection<Move> getLegalMoves(Bishop piece, GameContext context);
 
 	/**
 	 * Calculates moves for pawn.
@@ -69,6 +69,6 @@ public interface MoveDirector {
 	 * @param	context
 	 * @return			collection of valid moves
 	 */
-	Set<Move> getLegalMoves(Pawn piece, GameContext context);
+	Collection<Move> getLegalMoves(Pawn piece, GameContext context);
 
 }
