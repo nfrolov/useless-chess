@@ -77,7 +77,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanMakeTwoMovesFromInitialPosition() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 1));
+		board.setSquare(1, 1, piece);
+		board.setSquare(1, 1, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -90,8 +91,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanMakeOneMoveFromInitialPositionIfSecondSquareIsOccupied() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 1));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
+		board.setSquare(1, 1, piece);
+		board.setSquare(1, 3, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -104,8 +105,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanMakeNoMovesFromInitialPositionIfBlocked() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 1));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 2));
+		board.setSquare(1, 1, piece);
+		board.setSquare(1, 2, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -115,7 +116,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanMakeOneMoveFromOtherPosition() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 2));
+		board.setSquare(1, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -128,8 +129,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanMakeNoMovesIfBlocked() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 2));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
+		board.setSquare(1, 2, piece);
+		board.setSquare(1, 3, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -139,9 +140,9 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanCaptureBothDirections() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 2));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(0, 3));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(2, 3));
+		board.setSquare(1, 2, piece);
+		board.setSquare(0, 3, new Pawn(Color.BLACK));
+		board.setSquare(2, 3, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -154,10 +155,10 @@ public class MoveDirectorImplTest {
 	@Test
 	public void whitePawnCanCaptureBothDirectionsEvenIfBlocked() {
 		piece = new Pawn(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(1, 2));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(0, 3));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 3));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(2, 3));
+		board.setSquare(1, 2, piece);
+		board.setSquare(0, 3, new Pawn(Color.BLACK));
+		board.setSquare(1, 3, new Pawn(Color.BLACK));
+		board.setSquare(2, 3, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -170,7 +171,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanMakeTwoMovesFromInitialPosition() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 6));
+		board.setSquare(1, 6, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -183,7 +184,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanMakeOneMoveFromOtherPosition() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 5));
+		board.setSquare(1, 5, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -196,8 +197,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanMakeNoMovesFromInitialPositionIfBlocked() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 6));
-		board.setPiecePosition(new Pawn(Color.BLACK), board.getSquare(1, 5));
+		board.setSquare(1, 6, piece);
+		board.setSquare(1, 5, new Pawn(Color.BLACK));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -207,8 +208,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanMakeOneMoveFromInitialPositionIfSecondSquareIsOccupied() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 6));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 4));
+		board.setSquare(1, 6, piece);
+		board.setSquare(1, 4, new Pawn(Color.WHITE));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -221,8 +222,8 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanMakeNoMovesIfBlocked() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 6));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 5));
+		board.setSquare(1, 6, piece);
+		board.setSquare(1, 5, new Pawn(Color.WHITE));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -232,9 +233,9 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanCaptureBothDirections() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 5));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(0, 4));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(2, 4));
+		board.setSquare(1, 5, piece);
+		board.setSquare(0, 4, new Pawn(Color.WHITE));
+		board.setSquare(2, 4, new Pawn(Color.WHITE));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -247,10 +248,10 @@ public class MoveDirectorImplTest {
 	@Test
 	public void blackPawnCanCaptureBothDirectionsEvenIfBlocked() {
 		piece = new Pawn(Color.BLACK);
-		board.setPiecePosition(piece, board.getSquare(1, 5));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(0, 4));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(1, 4));
-		board.setPiecePosition(new Pawn(Color.WHITE), board.getSquare(2, 4));
+		board.setSquare(1, 5, piece);
+		board.setSquare(0, 4, new Pawn(Color.WHITE));
+		board.setSquare(1, 4, new Pawn(Color.WHITE));
+		board.setSquare(2, 4, new Pawn(Color.WHITE));
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -263,7 +264,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMoves() {
 		piece = new King(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(2, 2));
+		board.setSquare(2, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -278,7 +279,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMovesAtBorder() {
 		piece = new King(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(0, 2));
+		board.setSquare(0, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -293,7 +294,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMovesInCorner() {
 		piece = new King(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(7, 7));
+		board.setSquare(7, 7, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -307,7 +308,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void rookCanMakeAllLegalMoves() {
 		piece = new Rook(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(5, 5));
+		board.setSquare(5, 5, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -323,7 +324,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void bishopCanMakeAllLegalMoves() {
 		piece = new Bishop(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(4, 2));
+		board.setSquare(4, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -339,7 +340,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void queenCanMakeAllLegalMoves() {
 		piece = new Queen(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(2, 4));
+		board.setSquare(2, 4, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
@@ -376,7 +377,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void knightCanMakeAllLegalMoves() {
 		piece = new Knight(Color.WHITE);
-		board.setPiecePosition(piece, board.getSquare(3, 3));
+		board.setSquare(3, 3, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
