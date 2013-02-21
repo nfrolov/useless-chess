@@ -40,6 +40,8 @@ public class BoardPanel extends JPanel implements GameListener {
 				squares[column][row] = square;
 			}
 		}
+
+		setBorder(BorderFactory.createLineBorder(new Color(0x4A2D12), 4));
 	}
 
 	@Override
