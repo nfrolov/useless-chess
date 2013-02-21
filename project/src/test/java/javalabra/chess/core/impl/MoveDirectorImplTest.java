@@ -21,6 +21,7 @@ import javalabra.chess.domain.Square;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,7 +70,15 @@ public class MoveDirectorImplTest {
 	public void setUp() throws Exception {
 		board = new Board();
 		context = new GameContextImpl(board);
+
 		director = new MoveDirectorImpl();
+
+		board.setSquare(4, 0, new King(Color.WHITE));
+		board.setSquare(4, 7, new King(Color.BLACK));
+	}
+
+	@After
+	public void tearDown() {
 		moves = null;
 		piece = null;
 	}
@@ -264,6 +273,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMoves() {
 		piece = new King(Color.WHITE);
+		board.setSquare(4, 0, null); // clear initial position
 		board.setSquare(2, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
@@ -279,6 +289,7 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMovesAtBorder() {
 		piece = new King(Color.WHITE);
+		board.setSquare(4, 0, null); // clear initial position
 		board.setSquare(0, 2, piece);
 
 		moves = piece.getLegalMoves(director, context);
@@ -294,14 +305,15 @@ public class MoveDirectorImplTest {
 	@Test
 	public void kingCanMakeAllLegalMovesInCorner() {
 		piece = new King(Color.WHITE);
-		board.setSquare(7, 7, piece);
+		board.setSquare(4, 0, null); // clear initial position
+		board.setSquare(0, 0, piece);
 
 		moves = piece.getLegalMoves(director, context);
 
 		assertThat(moves, hasSize(3));
 		assertThat(moves, hasItems(
-				moveTo(6, 7),
-				moveTo(6, 6), moveTo(7, 6)
+				moveTo(0, 1), moveTo(1, 1),
+				moveTo(1, 0)
 				));
 	}
 
