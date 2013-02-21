@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
+import javalabra.chess.core.MoveDirector;
+import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
@@ -60,7 +62,8 @@ public class MoveDirectorImplTest {
 	}
 
 	Board board;
-	MoveDirectorImpl director;
+	MoveDirector director;
+	StateAnalyzer analyzer;
 	GameContext context;
 
 	Collection<Move> moves;
@@ -71,7 +74,11 @@ public class MoveDirectorImplTest {
 		board = new Board();
 		context = new GameContextImpl(board);
 
+		analyzer = new StateAnalyzerImpl();
 		director = new MoveDirectorImpl();
+
+		analyzer.setMoveDirector(director);
+		director.setStateAnalyzer(analyzer);
 
 		board.setSquare(4, 0, new King(Color.WHITE));
 		board.setSquare(4, 7, new King(Color.BLACK));

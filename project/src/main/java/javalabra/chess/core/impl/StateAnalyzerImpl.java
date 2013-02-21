@@ -18,9 +18,14 @@ import javalabra.chess.domain.Square;
  */
 public class StateAnalyzerImpl implements StateAnalyzer {
 
-	private final MoveDirector director;
+	private MoveDirector director;
 
-	public StateAnalyzerImpl(final MoveDirector director) {
+	public StateAnalyzerImpl() {
+		super();
+	}
+
+	@Override
+	public void setMoveDirector(final MoveDirector director) {
 		this.director = director;
 	}
 

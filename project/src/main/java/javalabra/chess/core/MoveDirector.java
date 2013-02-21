@@ -18,6 +18,13 @@ import javalabra.chess.domain.Rook;
 public interface MoveDirector {
 
 	/**
+	 * Sets state analyzer responsible for state checking.
+	 *
+	 * @param	analyzer
+	 */
+	void setStateAnalyzer(StateAnalyzer analyzer);
+
+	/**
 	 * Calculates legals moves for king.
 	 *
 	 * @param	piece

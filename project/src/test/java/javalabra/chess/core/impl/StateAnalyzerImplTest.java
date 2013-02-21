@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import javalabra.chess.core.GameContext;
+import javalabra.chess.core.MoveDirector;
 import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Color;
@@ -20,6 +21,7 @@ public class StateAnalyzerImplTest {
 
 	Board board;
 	StateAnalyzer analyzer;
+	MoveDirector director;
 	GameContext context;
 
 	Piece whiteKing, whitePawn, whiteRook1;
@@ -29,7 +31,12 @@ public class StateAnalyzerImplTest {
 	public void setUp() throws Exception {
 		board = new Board();
 		context = new GameContextImpl(board);
-		analyzer = new StateAnalyzerImpl(new MoveDirectorImpl());
+
+		analyzer = new StateAnalyzerImpl();
+		director = new MoveDirectorImpl();
+
+		analyzer.setMoveDirector(director);
+		director.setStateAnalyzer(analyzer);
 
 		whiteKing = new King(Color.WHITE);
 		whitePawn = new Pawn(Color.WHITE);

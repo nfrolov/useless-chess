@@ -36,9 +36,15 @@ public class GameImpl implements Game, BoardListener {
 		white = new PlayerWhite();
 		black = new PlayerBlack();
 		board = getBoardBuilder().build(white, black);
+
 		context = new GameContextImpl(board);
+
+		analyzer = new StateAnalyzerImpl();
 		director = new MoveDirectorImpl();
-		analyzer = new StateAnalyzerImpl(director);
+
+		analyzer.setMoveDirector(director);
+		director.setStateAnalyzer(analyzer);
+
 		em = new GameEventEmitter(board);
 	}
 

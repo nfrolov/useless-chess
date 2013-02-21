@@ -10,6 +10,13 @@ import javalabra.chess.domain.Color;
 public interface StateAnalyzer {
 
 	/**
+	 * Sets move director responsible for moves calculation.
+	 *
+	 * @param	director
+	 */
+	void setMoveDirector(MoveDirector director);
+
+	/**
 	 * Checks if the king of specified color is in check.
 	 *
 	 * @param	color	color of the king to check

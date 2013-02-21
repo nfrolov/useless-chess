@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.core.MoveDirector;
+import javalabra.chess.core.StateAnalyzer;
 import javalabra.chess.domain.Bishop;
 import javalabra.chess.domain.Color;
 import javalabra.chess.domain.King;
@@ -22,7 +23,15 @@ import javalabra.chess.domain.Square;
  */
 public class MoveDirectorImpl implements MoveDirector {
 
+	private StateAnalyzer analyzer;
+
 	public MoveDirectorImpl() {
+		super();
+	}
+
+	@Override
+	public void setStateAnalyzer(final StateAnalyzer analyzer) {
+		this.analyzer = analyzer;
 	}
 
 	@Override
