@@ -1,15 +1,14 @@
 Subject: Chess game
 
-Standard chess rules. Program will check correctness of the users' moves and detect
-checks and checkmates. All made moves must be displayed in game interface and must be
-available for export. Possible moves for selected piece should be highlighted.
-
+Standard chess rules. Program checks correctness of the users' moves and detect
+checks and checkmates. Possible moves for selected piece are highlighted. Game
+status is displayed in status bar.
 
 Users: two players
 
 Possible activities:
 
- - start a new game
- - movement making
- - game history exporting
- - restore game from the previously exported history
+ [x] start a new game
+ [x] movement making
+ [ ] export game history
+ [ ] import game history
