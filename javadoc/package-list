@@ -1,0 +1,7 @@
+javalabra.chess
+javalabra.chess.core
+javalabra.chess.core.impl
+javalabra.chess.core.impl.move
+javalabra.chess.core.impl.state
+javalabra.chess.domain
+javalabra.chess.ui
