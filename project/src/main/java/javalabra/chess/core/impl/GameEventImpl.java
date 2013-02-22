@@ -6,6 +6,11 @@ import javalabra.chess.core.GameEvent;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Square;
 
+/**
+ * Implementation of game event.
+ *
+ * @author Nikita Frolov
+ */
 public class GameEventImpl implements GameEvent {
 
 	private final Board board;

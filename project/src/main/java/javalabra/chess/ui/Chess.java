@@ -12,6 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * Main UI class which is responsible for displaying current game state by reacting
+ * to game events.
+ *
+ * @author Nikita Frolov
+ */
 public class Chess implements GameListener {
 
 	private static final String STATUS_BEGIN = "White begin!", STATUS_CHECK = "Check!", STATUS_CHECKMATE = "Checkmate!",

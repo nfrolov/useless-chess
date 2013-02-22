@@ -5,6 +5,9 @@ import java.util.Collection;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Square;
 
+/**
+ * @author Nikita Frolov
+ */
 public interface GameEvent {
 
 	Board getBoard();

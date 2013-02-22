@@ -7,6 +7,11 @@ import javalabra.chess.domain.Piece;
 
 import javax.swing.JPanel;
 
+/**
+ * Component that draws single square of the board.
+ *
+ * @author Nikita Frolov
+ */
 class SquarePanel extends JPanel {
 
 	private static final Color COLOR_WHITE = new Color(0xAD6D2F), COLOR_BLACK = new Color(0xFFCE9E);

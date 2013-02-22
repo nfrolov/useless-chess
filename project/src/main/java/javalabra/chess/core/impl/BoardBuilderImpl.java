@@ -31,6 +31,13 @@ public class BoardBuilderImpl implements BoardBuilder {
 		return board;
 	}
 
+	/**
+	 * Places pieces and adds them to collections.
+	 *
+	 * @param	board		current board
+	 * @param	whites		collection for white pieces
+	 * @param	blacks		collection for black pieces
+	 */
 	private void build(Board board, Collection<Piece> whites, Collection<Piece> blacks) {
 		assert whites.isEmpty() && blacks.isEmpty();
 
@@ -43,6 +50,13 @@ public class BoardBuilderImpl implements BoardBuilder {
 		assert 16 == whites.size() && 16 == blacks.size();
 	}
 
+	/**
+	 * Places main pieces on the board for concrete color.
+	 *
+	 * @param	color		player's color
+	 * @param	board		board to place on
+	 * @param	pieces		collection pieces are added to
+	 */
 	private void createMainRow(Color color, Board board, Collection<Piece> pieces) {
 		final int row = Color.WHITE == color ? 0 : 7;
 
@@ -58,6 +72,13 @@ public class BoardBuilderImpl implements BoardBuilder {
 		addPiece(pieces, new Rook(color), board, 7, row);
 	}
 
+	/**
+	 * Creates pawn row on the board for concrete color.
+	 *
+	 * @param	color		player's color
+	 * @param	board		board to place on
+	 * @param	pieces		collection pieces are added to
+	 */
 	private void createPawnRow(Color color, Board board, Collection<Piece> pieces) {
 		final int row = Color.WHITE == color ? 1 : 6;
 		for (int col = 0; col < 8; ++col) {
@@ -65,8 +86,17 @@ public class BoardBuilderImpl implements BoardBuilder {
 		}
 	}
 
+	/**
+	 * Adds piece to the board at specified position.
+	 *
+	 * @param	pieces		collection piece is added to
+	 * @param	piece		piece to be added
+	 * @param	board		target board
+	 * @param	col
+	 * @param	row
+	 */
 	private void addPiece(final Collection<Piece> pieces, final Piece piece, final Board board, final int col, final int row) {
-		board.setPiecePosition(piece, board.getSquare(col, row));
+		board.setSquare(col, row, piece);
 		pieces.add(piece);
 	}
 

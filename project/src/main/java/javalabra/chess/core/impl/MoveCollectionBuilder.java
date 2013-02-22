@@ -14,18 +14,55 @@ import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Square;
 
+/**
+ * Helper class to build moves' collections.
+ *
+ * @author Nikita Frolov
+ */
 public class MoveCollectionBuilder {
 
+	/**
+	 * Piece for which moves are constructed.
+	 */
 	private final Piece piece;
+
+	/**
+	 * Context representing game's current state.
+	 */
 	private final GameContext context;
+
+	/**
+	 * Current board.
+	 */
 	private final Board board;
+
+	/**
+	 * Piece's current position.
+	 */
 	private final Square source;
+
+	/**
+	 * State analyzer used for check/checkmate validation.
+	 */
 	private final StateAnalyzer analyzer;
 
+	/**
+	 * Collection containing all calculated moves.
+	 */
 	private final Set<Move> moves;
 
+	/**
+	 * Represents how many moves were added by last add command.
+	 */
 	private int added;
 
+	/**
+	 * Constructs builder object for specified piece in given context.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @param	analyzer		state
+	 */
 	public MoveCollectionBuilder(final Piece piece, final GameContext context, final StateAnalyzer analyzer) {
 		this.piece = piece;
 		this.context = context;
@@ -37,6 +74,13 @@ public class MoveCollectionBuilder {
 		this.added = 0;
 	}
 
+	/**
+	 * Adds any move specified by offsets.
+	 *
+	 * @param	deltaColumn	column offset
+	 * @param	deltaRow	row offset
+	 * @return				same builder object
+	 */
 	public MoveCollectionBuilder addMove(final int deltaColumn, final int deltaRow) {
 		final int column = source.getColumn(), row = source.getRow();
 
@@ -46,6 +90,11 @@ public class MoveCollectionBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds straight moves to all directions.
+	 *
+	 * @return				same builder object
+	 */
 	public MoveCollectionBuilder addStraightMoves() {
 		added = 0;
 		addLineMoves(0, -1);
@@ -56,6 +105,11 @@ public class MoveCollectionBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds diagonal moves to all directions.
+	 *
+	 * @return				same builder object
+	 */
 	public MoveCollectionBuilder addDiagonalMoves() {
 		added = 0;
 		addLineMoves(-1, -1);
@@ -66,6 +120,13 @@ public class MoveCollectionBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds only normal move specified by offsets. Move won't be added if target square is occupied by any piece.
+	 *
+	 * @param	deltaColumn	column offset
+	 * @param	deltaRow	row offset
+	 * @return				same builder object
+	 */
 	public MoveCollectionBuilder addNormalMove(int deltaColumn, int deltaRow) {
 		final int column = source.getColumn(), row = source.getRow();
 
@@ -75,6 +136,13 @@ public class MoveCollectionBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds only capture move specified by offsets. Move won't be added if square is empty.
+	 *
+	 * @param	deltaColumn	column offset
+	 * @param	deltaRow	row offset
+	 * @return				same builder object
+	 */
 	public MoveCollectionBuilder addCaptureMove(int deltaColumn, int deltaRow) {
 		final int column = source.getColumn(), row = source.getRow();
 
@@ -84,14 +152,30 @@ public class MoveCollectionBuilder {
 		return this;
 	}
 
+	/**
+	 * Returns true if last add command added any move.
+	 *
+	 * @return				true if added
+	 */
 	public boolean added() {
 		return 0 != added;
 	}
 
+	/**
+	 * Returns all the calculated moves at the moment.
+	 *
+	 * @return				collection of moves
+	 */
 	public Collection<Move> getCandidateMoves() {
 		return moves;
 	}
 
+	/**
+	 * Returns all the legal moves calculated at the moment. Such moves are verified not to place
+	 * same color king in check.
+	 *
+	 * @return				collection of moves
+	 */
 	public Collection<Move> getLegalMoves() {
 		final Collection<Move> legal = new HashSet<Move>(moves);
 		final Iterator<Move> it = legal.iterator();
@@ -107,6 +191,12 @@ public class MoveCollectionBuilder {
 		return legal;
 	}
 
+	/**
+	 * Adds all moves in line specified by offset. Stops at occupied squares. Squares occupied by enemy pieces results in capture moves.
+	 *
+	 * @param	deltaCol	horizontal direction by offset
+	 * @param	deltaRow	vertical direction by offset
+	 */
 	private void addLineMoves(final int deltaCol, final int deltaRow) {
 		int column = source.getColumn(), row = source.getRow();
 		do {
@@ -115,6 +205,15 @@ public class MoveCollectionBuilder {
 		} while (addMove(column, row, true, false));
 	}
 
+	/**
+	 * Adds move to specified positions. Moves are validated before adding.
+	 *
+	 * @param	column		target column
+	 * @param	row			target row
+	 * @param	canCapture	if occupied by enemy piece can be captured
+	 * @param	captureOnly	if only capture can be made
+	 * @return				true only if normal move was added
+	 */
 	private boolean addMove(int column, int row, boolean canCapture, boolean captureOnly) {
 		if (column < 0 || column > 7 || row < 0 || row > 7) {
 			return false;
@@ -137,6 +236,11 @@ public class MoveCollectionBuilder {
 		return false;
 	}
 
+	/**
+	 * Adds move to collection.
+	 *
+	 * @param	move
+	 */
 	private void add(final Move move) {
 		moves.add(move);
 		++added;

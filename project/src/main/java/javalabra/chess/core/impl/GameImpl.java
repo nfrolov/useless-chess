@@ -20,18 +20,49 @@ import javalabra.chess.ui.BoardListener;
  */
 public class GameImpl implements Game, BoardListener {
 
+	/**
+	 * White player.
+	 */
 	private final PlayerWhite white;
+
+	/**
+	 * Black player.
+	 */
 	private final PlayerBlack black;
+
+	/**
+	 * Chessboard.
+	 */
 	private final Board board;
+
+	/**
+	 * Game's context.
+	 */
 	private final GameContext context;
 
+	/**
+	 * Move director responsible for move calculations.
+	 */
 	private final MoveDirector director;
+
+	/**
+	 * State analyzer responsible for check/checkmate detections.
+	 */
 	private final StateAnalyzer analyzer;
 
+	/**
+	 * Helper object for event triggering.
+	 */
 	private GameEventEmitter em;
 
+	/**
+	 * Current state of the game.
+	 */
 	private GameState state;
 
+	/**
+	 * Prepares new game to begin.
+	 */
 	public GameImpl() {
 		white = new PlayerWhite();
 		black = new PlayerBlack();

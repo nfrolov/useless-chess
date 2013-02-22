@@ -94,6 +94,13 @@ public class MoveDirectorImpl implements MoveDirector {
 		return build(piece, context).getCandidateMoves();
 	}
 
+	/**
+	 * Creates builder and add all moves for the king.
+	 *
+	 * @param	piece		king piece
+	 * @param	context
+	 * @return				builder object with all moves added
+	 */
 	private MoveCollectionBuilder build(final King piece, final GameContext context) {
 		// TODO castling
 		return newBuilder(piece, context)
@@ -107,17 +114,38 @@ public class MoveDirectorImpl implements MoveDirector {
 				.addMove(+1, -1);
 	}
 
+	/**
+	 * Creates builder and add all moves for the queen.
+	 *
+	 * @param	piece		queen piece
+	 * @param	context
+	 * @return				builder object with all moves added
+	 */
 	private MoveCollectionBuilder build(final Queen piece, final GameContext context) {
 		return newBuilder(piece, context)
 				.addStraightMoves()
 				.addDiagonalMoves();
 	}
 
+	/**
+	 * Creates builder and add all moves for the rook.
+	 *
+	 * @param	piece		rook piece
+	 * @param	context
+	 * @return				builder object with all moves added
+	 */
 	private MoveCollectionBuilder build(final Rook piece, final GameContext context) {
 		return newBuilder(piece, context)
 				.addStraightMoves();
 	}
 
+	/**
+	 * Creates builder and add all moves for the knight.
+	 *
+	 * @param	piece		knight piece
+	 * @param	context
+	 * @return				builder object with all moves added
+	 */
 	private MoveCollectionBuilder build(final Knight piece, final GameContext context) {
 		return newBuilder(piece, context)
 				.addMove(-2, -1)
@@ -135,6 +163,13 @@ public class MoveDirectorImpl implements MoveDirector {
 				.addDiagonalMoves();
 	}
 
+	/**
+	 * Creates builder and add all moves for the pawn.
+	 *
+	 * @param	piece		pawn piece
+	 * @param	context
+	 * @return				builder object with all moves added
+	 */
 	private MoveCollectionBuilder build(final Pawn piece, final GameContext context) {
 		final MoveCollectionBuilder builder = newBuilder(piece, context);
 		final Square pos = context.getBoard().getPiecePosition(piece);
@@ -163,6 +198,13 @@ public class MoveDirectorImpl implements MoveDirector {
 		return builder;
 	}
 
+	/**
+	 * Creates new buidler for provided piece.
+	 *
+	 * @param	piece
+	 * @param	context
+	 * @return				new builder object
+	 */
 	private MoveCollectionBuilder newBuilder(final Piece piece, final GameContext context) {
 		return new MoveCollectionBuilder(piece, context, analyzer);
 	}

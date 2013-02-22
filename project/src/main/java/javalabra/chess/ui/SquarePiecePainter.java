@@ -20,6 +20,12 @@ import javalabra.chess.domain.Rook;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Implementation of the square painter. Paints piece's image on
+ * provided panel.
+ *
+ * @author Nikita Frolov
+ */
 class SquarePiecePainter implements PiecePainter {
 
 	private final SquarePanel panel;

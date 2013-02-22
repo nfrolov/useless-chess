@@ -10,14 +10,28 @@ public class Square {
 	private final int column; // file
 	private final int row; // rank
 
+	/**
+	 * Piece occupuing square.
+	 */
 	private Piece piece;
 
+	/**
+	 * Constructs square for specified column and row.
+	 *
+	 * @param	column
+	 * @param	row
+	 */
 	public Square(int column, int row) {
 		this.column = column;
 		this.row = row;
 		this.piece = null;
 	}
 
+	/**
+	 * Constructs copy of square.
+	 *
+	 * @param	origin	original square
+	 */
 	public Square(final Square origin) {
 		column = origin.column;
 		row = origin.row;
@@ -32,10 +46,20 @@ public class Square {
 		return row;
 	}
 
+	/**
+	 * Returns human-readable name for the column.
+	 *
+	 * @return
+	 */
 	public char getFile() {
 		return (char) ('a' + column);
 	}
 
+	/**
+	 * Returns human-readable name for the row.
+	 *
+	 * @return
+	 */
 	public char getRank() {
 		return (char) ('1' + row);
 	}

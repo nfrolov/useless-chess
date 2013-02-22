@@ -18,6 +18,11 @@ import javalabra.chess.domain.Square;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+/**
+ * A component that draws board. Board is repainted on every game changed event.
+ *
+ * @author Nikita Frolov
+ */
 public class BoardPanel extends JPanel implements GameListener {
 
 	private final SquareMouseListener mouseListener;

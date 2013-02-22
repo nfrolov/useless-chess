@@ -11,6 +11,12 @@ import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Piece;
 import javalabra.chess.domain.Square;
 
+/**
+ * State object representing state when game is waiting for piece of concrete
+ * color to be selected.
+ *
+ * @author Nikita Frolov
+ */
 public class SelectPieceState extends AbstractGameState {
 
 	private final Color color;

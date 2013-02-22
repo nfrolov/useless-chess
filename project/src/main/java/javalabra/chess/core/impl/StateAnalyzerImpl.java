@@ -57,7 +57,7 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 
 	@Override
 	public boolean isCheckmate(final Color color, final GameContext context) {
-		return isCheck(color, context) && !hasValidMoves(color, context);
+		return isCheck(color, context) && !hasLegalMoves(color, context);
 	}
 
 	@Override
@@ -67,10 +67,17 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 
 	@Override
 	public boolean isStalemate(final Color color, final GameContext context) {
-		return !isCheck(color, context) && !hasValidMoves(color, context);
+		return !isCheck(color, context) && !hasLegalMoves(color, context);
 	}
 
-	private boolean hasValidMoves(final Color color, final GameContext context) {
+	/**
+	 * Checks if the specified player has legal moves in given context.
+	 *
+	 * @param	color		color to check moves for
+	 * @param	context		game context
+	 * @return				true if there is any legal move
+	 */
+	private boolean hasLegalMoves(final Color color, final GameContext context) {
 		final Board board = context.getBoard();
 		final Collection<Piece> pieces = board.getPieces(color);
 
@@ -87,6 +94,13 @@ public class StateAnalyzerImpl implements StateAnalyzer {
 		return false;
 	}
 
+	/**
+	 * Checks if any move in provided collection is to concrete square.
+	 *
+	 * @param	moves		collection of moves
+	 * @param	square		target square
+	 * @return				true if contains
+	 */
 	private boolean contains(final Collection<Move> moves, final Square square) {
 		for (final Move move : moves) {
 			if (move.getDestination().equals(square)) {

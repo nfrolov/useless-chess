@@ -20,12 +20,32 @@ import javalabra.chess.domain.Square;
  */
 public class GameEventEmitter {
 
+	/**
+	 * Empty moves list returned when there is no moves.
+	 */
 	private final static Collection<Square> EMPTY_MOVES_LIST = Collections.emptyList();
 
+	/**
+	 * Game's context.
+	 */
 	private final GameContext context;
+
+	/**
+	 * State analyzer used to report check/checkmate status.
+	 */
 	private final StateAnalyzer analyzer;
+
+	/**
+	 * Object listening to game events.
+	 */
 	private GameListener listener;
 
+	/**
+	 * Constructs new game emitter for concrete context.
+	 *
+	 * @param	context
+	 * @param	analyzer
+	 */
 	public GameEventEmitter(final GameContext context, final StateAnalyzer analyzer) {
 		this.context = context;
 		this.analyzer = analyzer;
@@ -67,6 +87,12 @@ public class GameEventEmitter {
 		trigger(color, null, null);
 	}
 
+	/**
+	 * Extracts all target squares from moves.
+	 *
+	 * @param	moves		legal moves collection
+	 * @return				collection of destination squares
+	 */
 	private static Collection<Square> extractDestinations(final Collection<Move> moves) {
 		if (null == moves || moves.isEmpty()) {
 			return EMPTY_MOVES_LIST;
