@@ -1,4 +1,4 @@
-package javalabra.chess.core.move;
+package javalabra.chess.core.impl.move;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;

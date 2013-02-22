@@ -1,4 +1,4 @@
-package javalabra.chess.core.move;
+package javalabra.chess.core.impl.move;
 
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Move;

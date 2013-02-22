@@ -7,8 +7,8 @@ import java.util.Set;
 
 import javalabra.chess.core.GameContext;
 import javalabra.chess.core.StateAnalyzer;
-import javalabra.chess.core.move.CaptureMove;
-import javalabra.chess.core.move.NormalMove;
+import javalabra.chess.core.impl.move.CaptureMove;
+import javalabra.chess.core.impl.move.NormalMove;
 import javalabra.chess.domain.Board;
 import javalabra.chess.domain.Move;
 import javalabra.chess.domain.Piece;
